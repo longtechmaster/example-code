@@ -1,0 +1,3443 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Protocol Documentation</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic"/>
+    <style>
+      body {
+        width: 60em;
+        margin: 1em auto;
+        color: #222;
+        font-family: "Ubuntu", sans-serif;
+        padding-bottom: 4em;
+      }
+
+      h1 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      h2 {
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+        margin: 1.5em 0;
+      }
+
+      h3 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      a {
+        text-decoration: none;
+        color: #567e25;
+      }
+
+      table {
+        width: 100%;
+        font-size: 80%;
+        border-collapse: collapse;
+      }
+
+      thead {
+        font-weight: 700;
+        background-color: #dcdcdc;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #fbfbfb;
+      }
+
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5ex 2ex;
+      }
+
+      td p {
+        text-indent: 1em;
+        margin: 0;
+      }
+
+      td p:nth-child(1) {
+        text-indent: 0;  
+      }
+
+       
+      .field-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .field-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .field-table td:nth-child(3) {  
+        width: 6em;
+      }
+      .field-table td:nth-child(4) {  
+        width: auto;
+      }
+
+       
+      .extension-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(3) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(4) {  
+        width: 5em;
+      }
+      .extension-table td:nth-child(5) {  
+        width: auto;
+      }
+
+       
+      .enum-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .enum-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .enum-table td:nth-child(3) {  
+        width: auto;
+      }
+
+       
+      .scalar-value-types-table tr {
+        height: 3em;
+      }
+
+       
+      #toc-container ul {
+        list-style-type: none;
+        padding-left: 1em;
+        line-height: 180%;
+        margin: 0;
+      }
+      #toc > li > a {
+        font-weight: bold;
+      }
+
+       
+      .file-heading {
+        width: 100%;
+        display: table;
+        border-bottom: 1px solid #aaa;
+        margin: 4em 0 1.5em 0;
+      }
+      .file-heading h2 {
+        border: none;
+        display: table-cell;
+      }
+      .file-heading a {
+        text-align: right;
+        display: table-cell;
+      }
+
+       
+      .badge {
+        width: 1.6em;
+        height: 1.6em;
+        display: inline-block;
+
+        line-height: 1.6em;
+        text-align: center;
+        font-weight: bold;
+        font-size: 60%;
+
+        color: #89ba48;
+        background-color: #dff0c8;
+
+        margin: 0.5ex 1em 0.5ex -1em;
+        border: 1px solid #fbfbfb;
+        border-radius: 1ex;
+      }
+    </style>
+
+    
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+  </head>
+
+  <body>
+
+    <h1 id="title">Protocol Documentation</h1>
+
+    <h2>Table of Contents</h2>
+
+    <div id="toc-container">
+      <ul id="toc">
+        
+          
+          <li>
+            <a href="#blog.proto">blog.proto</a>
+            <ul>
+              
+              
+              
+              
+                <li>
+                  <a href="#blog.blog"><span class="badge">S</span>blog</a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#base.proto">base.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#blog.AuthorFollow"><span class="badge">M</span>AuthorFollow</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.AuthorStats"><span class="badge">M</span>AuthorStats</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.Bookmark"><span class="badge">M</span>Bookmark</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.Category"><span class="badge">M</span>Category</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.Comment"><span class="badge">M</span>Comment</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.CommentVote"><span class="badge">M</span>CommentVote</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.EmptyRequest"><span class="badge">M</span>EmptyRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.Pagination"><span class="badge">M</span>Pagination</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.Post"><span class="badge">M</span>Post</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.PostVote"><span class="badge">M</span>PostVote</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.ResultResponse"><span class="badge">M</span>ResultResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.Tag"><span class="badge">M</span>Tag</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.TagFollow"><span class="badge">M</span>TagFollow</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#blog.Pagination.Direction"><span class="badge">E</span>Pagination.Direction</a>
+                </li>
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#blog_author.proto">blog_author.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#blog.FollowAuthorRequest"><span class="badge">M</span>FollowAuthorRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetAuthorByIdRequest"><span class="badge">M</span>GetAuthorByIdRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetAuthorByIdResponse"><span class="badge">M</span>GetAuthorByIdResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetAuthorFollowRequest"><span class="badge">M</span>GetAuthorFollowRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetAuthorFollowResponse"><span class="badge">M</span>GetAuthorFollowResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetHotAuthorsResponse"><span class="badge">M</span>GetHotAuthorsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetPersonalBlogInfoResponse"><span class="badge">M</span>GetPersonalBlogInfoResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetPersonalFollowResponse"><span class="badge">M</span>GetPersonalFollowResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetPublishedPostsByAuthorRequest"><span class="badge">M</span>GetPublishedPostsByAuthorRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetSameAuthorPublishedPostsRequest"><span class="badge">M</span>GetSameAuthorPublishedPostsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.UnFollowAuthorRequest"><span class="badge">M</span>UnFollowAuthorRequest</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#blog_category.proto">blog_category.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#blog.CreateCategoryRequest"><span class="badge">M</span>CreateCategoryRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.CreateCategoryResponse"><span class="badge">M</span>CreateCategoryResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.DeleteCategoryRequest"><span class="badge">M</span>DeleteCategoryRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetCategoriesRequest"><span class="badge">M</span>GetCategoriesRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetCategoriesResponse"><span class="badge">M</span>GetCategoriesResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetCategoryByIdRequest"><span class="badge">M</span>GetCategoryByIdRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetCategoryByIdResponse"><span class="badge">M</span>GetCategoryByIdResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetPublishedPostsByCategoryRequest"><span class="badge">M</span>GetPublishedPostsByCategoryRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetPublishedPostsByCategoryResponse"><span class="badge">M</span>GetPublishedPostsByCategoryResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.UpdateCategoryRequest"><span class="badge">M</span>UpdateCategoryRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.UpdateCategoryResponse"><span class="badge">M</span>UpdateCategoryResponse</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#blog_comment.proto">blog_comment.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#blog.CreateCommentRequest"><span class="badge">M</span>CreateCommentRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.DeleteCommentRequest"><span class="badge">M</span>DeleteCommentRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.DeleteCommentsOfOwnPostRequest"><span class="badge">M</span>DeleteCommentsOfOwnPostRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.DeleteCommentsOfPostRequest"><span class="badge">M</span>DeleteCommentsOfPostRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetCommentsOfPostRequest"><span class="badge">M</span>GetCommentsOfPostRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetCommentsOfPostResponse"><span class="badge">M</span>GetCommentsOfPostResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetReplyCommentsRequest"><span class="badge">M</span>GetReplyCommentsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetReplyCommentsResponse"><span class="badge">M</span>GetReplyCommentsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.UpdateCommentRequest"><span class="badge">M</span>UpdateCommentRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.VoteCommentRequest"><span class="badge">M</span>VoteCommentRequest</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#blog_post.proto">blog_post.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#blog.BookmarkRequest"><span class="badge">M</span>BookmarkRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.CreatePostRequest"><span class="badge">M</span>CreatePostRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.CreatePostResponse"><span class="badge">M</span>CreatePostResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.DeletePostRequest"><span class="badge">M</span>DeletePostRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetOwnPostsRequest"><span class="badge">M</span>GetOwnPostsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetPostByIdRequest"><span class="badge">M</span>GetPostByIdRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetPostByIdResponse"><span class="badge">M</span>GetPostByIdResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetPostsRequest"><span class="badge">M</span>GetPostsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetPublishedPostsResquest"><span class="badge">M</span>GetPublishedPostsResquest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetRelatedPostsRequest"><span class="badge">M</span>GetRelatedPostsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.ListPostsResponse"><span class="badge">M</span>ListPostsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.PublishPostRequest"><span class="badge">M</span>PublishPostRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.SearchPostsRequest"><span class="badge">M</span>SearchPostsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.UpdatePostRequest"><span class="badge">M</span>UpdatePostRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.UpdatePostResponse"><span class="badge">M</span>UpdatePostResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.VoteDownPostRequest"><span class="badge">M</span>VoteDownPostRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.VoteUpPostRequest"><span class="badge">M</span>VoteUpPostRequest</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#blog_tag.proto">blog_tag.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#blog.CreateTagRequest"><span class="badge">M</span>CreateTagRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.CreateTagResponse"><span class="badge">M</span>CreateTagResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.FollowTagRequest"><span class="badge">M</span>FollowTagRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetFollowingTagsResponse"><span class="badge">M</span>GetFollowingTagsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetPopularTagsRequest"><span class="badge">M</span>GetPopularTagsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetPopularTagsResponse"><span class="badge">M</span>GetPopularTagsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetPublishedPostsByTagRequest"><span class="badge">M</span>GetPublishedPostsByTagRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetTagsRequest"><span class="badge">M</span>GetTagsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.GetTagsResponse"><span class="badge">M</span>GetTagsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.SearchTagsRequest"><span class="badge">M</span>SearchTagsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.SearchTagsResponse"><span class="badge">M</span>SearchTagsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#blog.UnFollowTagRequest"><span class="badge">M</span>UnFollowTagRequest</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+        <li><a href="#scalar-value-types">Scalar Value Types</a></li>
+      </ul>
+    </div>
+
+    
+      
+      <div class="file-heading">
+        <h2 id="blog.proto">blog.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+
+      
+
+      
+
+      
+        <h3 id="blog.blog">blog</h3>
+        <p>Post</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>CreatePost</td>
+                <td><a href="#blog.CreatePostRequest">CreatePostRequest</a></td>
+                <td><a href="#blog.CreatePostResponse">CreatePostResponse</a></td>
+                <td><p>Tạo bài viết</p></td>
+              </tr>
+            
+              <tr>
+                <td>CreateOwnPost</td>
+                <td><a href="#blog.CreatePostRequest">CreatePostRequest</a></td>
+                <td><a href="#blog.CreatePostResponse">CreatePostResponse</a></td>
+                <td><p>Tạo bài viết của bản thân</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetPostById</td>
+                <td><a href="#blog.GetPostByIdRequest">GetPostByIdRequest</a></td>
+                <td><a href="#blog.GetPostByIdResponse">GetPostByIdResponse</a></td>
+                <td><p>Lấy thông tin bài viết theo Id</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetOwnPostById</td>
+                <td><a href="#blog.GetPostByIdRequest">GetPostByIdRequest</a></td>
+                <td><a href="#blog.GetPostByIdResponse">GetPostByIdResponse</a></td>
+                <td><p>Lấy thông tin bài viết do bản thân tạo ra theo Id</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetPosts</td>
+                <td><a href="#blog.GetPostsRequest">GetPostsRequest</a></td>
+                <td><a href="#blog.ListPostsResponse">ListPostsResponse</a></td>
+                <td><p>Lấy danh sách bài viết</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetOwnPosts</td>
+                <td><a href="#blog.GetOwnPostsRequest">GetOwnPostsRequest</a></td>
+                <td><a href="#blog.ListPostsResponse">ListPostsResponse</a></td>
+                <td><p>Lấy danh sách bài viết của bản thân</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetPublishedPosts</td>
+                <td><a href="#blog.GetPublishedPostsResquest">GetPublishedPostsResquest</a></td>
+                <td><a href="#blog.ListPostsResponse">ListPostsResponse</a></td>
+                <td><p>Lấy danh sách các bài viết đã xuất bản</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetRelatedPosts</td>
+                <td><a href="#blog.GetRelatedPostsRequest">GetRelatedPostsRequest</a></td>
+                <td><a href="#blog.ListPostsResponse">ListPostsResponse</a></td>
+                <td><p>Lấy danh sách bài viết liên quan</p></td>
+              </tr>
+            
+              <tr>
+                <td>UpdatePost</td>
+                <td><a href="#blog.UpdatePostRequest">UpdatePostRequest</a></td>
+                <td><a href="#blog.UpdatePostResponse">UpdatePostResponse</a></td>
+                <td><p>Cập nhật bài viết</p></td>
+              </tr>
+            
+              <tr>
+                <td>UpdateOwnPost</td>
+                <td><a href="#blog.UpdatePostRequest">UpdatePostRequest</a></td>
+                <td><a href="#blog.UpdatePostResponse">UpdatePostResponse</a></td>
+                <td><p>Cập nhật bài viết của bản thân</p></td>
+              </tr>
+            
+              <tr>
+                <td>DeletePost</td>
+                <td><a href="#blog.DeletePostRequest">DeletePostRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Xóa bài viết</p></td>
+              </tr>
+            
+              <tr>
+                <td>DeleteOwnPost</td>
+                <td><a href="#blog.DeletePostRequest">DeletePostRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Xóa bài viết của bản thân</p></td>
+              </tr>
+            
+              <tr>
+                <td>PublishPost</td>
+                <td><a href="#blog.PublishPostRequest">PublishPostRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Xuất bản bài viết</p></td>
+              </tr>
+            
+              <tr>
+                <td>PublishOwnPost</td>
+                <td><a href="#blog.PublishPostRequest">PublishPostRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Xuất bản bài viết của bản thân</p></td>
+              </tr>
+            
+              <tr>
+                <td>SearchPosts</td>
+                <td><a href="#blog.SearchPostsRequest">SearchPostsRequest</a></td>
+                <td><a href="#blog.ListPostsResponse">ListPostsResponse</a></td>
+                <td><p>Tìm kiếm bài viết</p></td>
+              </tr>
+            
+              <tr>
+                <td>VoteUpPost</td>
+                <td><a href="#blog.VoteUpPostRequest">VoteUpPostRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Vote Up bài viết</p></td>
+              </tr>
+            
+              <tr>
+                <td>VoteDownPost</td>
+                <td><a href="#blog.VoteDownPostRequest">VoteDownPostRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Vote Down bài viết</p></td>
+              </tr>
+            
+              <tr>
+                <td>Bookmark</td>
+                <td><a href="#blog.BookmarkRequest">BookmarkRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Bookmark bài viết</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetBookmarkPosts</td>
+                <td><a href="#blog.EmptyRequest">EmptyRequest</a></td>
+                <td><a href="#blog.ListPostsResponse">ListPostsResponse</a></td>
+                <td><p>Lấy danh sách bài viết đã bookmark</p></td>
+              </tr>
+            
+              <tr>
+                <td>CreateCategory</td>
+                <td><a href="#blog.CreateCategoryRequest">CreateCategoryRequest</a></td>
+                <td><a href="#blog.CreateCategoryResponse">CreateCategoryResponse</a></td>
+                <td><p>Tạo danh mục</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetCategories</td>
+                <td><a href="#blog.GetCategoriesRequest">GetCategoriesRequest</a></td>
+                <td><a href="#blog.GetCategoriesResponse">GetCategoriesResponse</a></td>
+                <td><p>Lấy danh sách danh mục</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetCategoryById</td>
+                <td><a href="#blog.GetCategoryByIdRequest">GetCategoryByIdRequest</a></td>
+                <td><a href="#blog.GetCategoryByIdResponse">GetCategoryByIdResponse</a></td>
+                <td><p>Lấy thông tin danh mục theo Id</p></td>
+              </tr>
+            
+              <tr>
+                <td>UpdateCategory</td>
+                <td><a href="#blog.UpdateCategoryRequest">UpdateCategoryRequest</a></td>
+                <td><a href="#blog.UpdateCategoryResponse">UpdateCategoryResponse</a></td>
+                <td><p>Cập nhật danh mục</p></td>
+              </tr>
+            
+              <tr>
+                <td>DeleteCategory</td>
+                <td><a href="#blog.DeleteCategoryRequest">DeleteCategoryRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Xóa danh mục</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetPublishedPostsByCategory</td>
+                <td><a href="#blog.GetPublishedPostsByCategoryRequest">GetPublishedPostsByCategoryRequest</a></td>
+                <td><a href="#blog.GetPublishedPostsByCategoryResponse">GetPublishedPostsByCategoryResponse</a></td>
+                <td><p>Lấy danh sách bài viết đã xuất bản theo danh mục</p></td>
+              </tr>
+            
+              <tr>
+                <td>CreateTag</td>
+                <td><a href="#blog.CreateTagRequest">CreateTagRequest</a></td>
+                <td><a href="#blog.CreateTagResponse">CreateTagResponse</a></td>
+                <td><p>Tạo Tag</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetTags</td>
+                <td><a href="#blog.GetTagsRequest">GetTagsRequest</a></td>
+                <td><a href="#blog.GetTagsResponse">GetTagsResponse</a></td>
+                <td><p>Lấy danh sách Tag</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetPopularTags</td>
+                <td><a href="#blog.GetPopularTagsRequest">GetPopularTagsRequest</a></td>
+                <td><a href="#blog.GetPopularTagsResponse">GetPopularTagsResponse</a></td>
+                <td><p>Lấy danh sách Tag thông dụng (có nhiều bài viết)</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetPublishedPostsByTag</td>
+                <td><a href="#blog.GetPublishedPostsByTagRequest">GetPublishedPostsByTagRequest</a></td>
+                <td><a href="#blog.ListPostsResponse">ListPostsResponse</a></td>
+                <td><p>Lấy danh sách bài viết đã xuất bản theo Tag</p></td>
+              </tr>
+            
+              <tr>
+                <td>SearchTags</td>
+                <td><a href="#blog.SearchTagsRequest">SearchTagsRequest</a></td>
+                <td><a href="#blog.SearchTagsResponse">SearchTagsResponse</a></td>
+                <td><p>Tìm kiếm Tag theo keyword</p></td>
+              </tr>
+            
+              <tr>
+                <td>FollowTag</td>
+                <td><a href="#blog.FollowTagRequest">FollowTagRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Theo dõi Tag</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetFollowingTags</td>
+                <td><a href="#blog.EmptyRequest">EmptyRequest</a></td>
+                <td><a href="#blog.GetFollowingTagsResponse">GetFollowingTagsResponse</a></td>
+                <td><p>Lấy danh sách Tag mà người dùng đang theo dõi</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetPersonalBlogInfo</td>
+                <td><a href="#blog.EmptyRequest">EmptyRequest</a></td>
+                <td><a href="#blog.GetPersonalBlogInfoResponse">GetPersonalBlogInfoResponse</a></td>
+                <td><p>Lấy thông tin blog cá nhân</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetAuthorById</td>
+                <td><a href="#blog.GetAuthorByIdRequest">GetAuthorByIdRequest</a></td>
+                <td><a href="#blog.GetAuthorByIdResponse">GetAuthorByIdResponse</a></td>
+                <td><p>Lấy thông tin tác giả theo Id</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetHotAuthors</td>
+                <td><a href="#blog.EmptyRequest">EmptyRequest</a></td>
+                <td><a href="#blog.GetHotAuthorsResponse">GetHotAuthorsResponse</a></td>
+                <td><p>Lấy danh sách top tác giả</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetPublishedPostsByAuthor</td>
+                <td><a href="#blog.GetPublishedPostsByAuthorRequest">GetPublishedPostsByAuthorRequest</a></td>
+                <td><a href="#blog.ListPostsResponse">ListPostsResponse</a></td>
+                <td><p>Lấy danh sách bài viết đã xuất bản theo tác giả</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetSameAuthorPublishedPosts</td>
+                <td><a href="#blog.GetSameAuthorPublishedPostsRequest">GetSameAuthorPublishedPostsRequest</a></td>
+                <td><a href="#blog.ListPostsResponse">ListPostsResponse</a></td>
+                <td><p>Lấy danh sách bài viết đã xuất bản có cùng tác giả</p></td>
+              </tr>
+            
+              <tr>
+                <td>FollowAuthor</td>
+                <td><a href="#blog.FollowAuthorRequest">FollowAuthorRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Theo dõi tác giả</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetPersonalFollow</td>
+                <td><a href="#blog.EmptyRequest">EmptyRequest</a></td>
+                <td><a href="#blog.GetPersonalFollowResponse">GetPersonalFollowResponse</a></td>
+                <td><p>Lấy danh sách những người đang theo dõi cá nhân, và những người cá nhân đang theo dõi</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetAuthorFollow</td>
+                <td><a href="#blog.GetAuthorFollowRequest">GetAuthorFollowRequest</a></td>
+                <td><a href="#blog.GetAuthorFollowResponse">GetAuthorFollowResponse</a></td>
+                <td><p>Lấy danh sách những người đang theo dõi tác giả, và những người tác giả đang theo dõi</p></td>
+              </tr>
+            
+              <tr>
+                <td>CreateComment</td>
+                <td><a href="#blog.CreateCommentRequest">CreateCommentRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Bình luận bài viết</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetCommentsOfPost</td>
+                <td><a href="#blog.GetCommentsOfPostRequest">GetCommentsOfPostRequest</a></td>
+                <td><a href="#blog.GetCommentsOfPostResponse">GetCommentsOfPostResponse</a></td>
+                <td><p>Lấy danh sách bình luận của bài viết (sắp xếp từ mới đến cũ)</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetReplyComments</td>
+                <td><a href="#blog.GetReplyCommentsRequest">GetReplyCommentsRequest</a></td>
+                <td><a href="#blog.GetReplyCommentsResponse">GetReplyCommentsResponse</a></td>
+                <td><p>Lấy danh sách trả lời của một bình luận (sắp xếp từ cũ đến mới)</p></td>
+              </tr>
+            
+              <tr>
+                <td>UpdateComment</td>
+                <td><a href="#blog.UpdateCommentRequest">UpdateCommentRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Cập nhật bình luận</p></td>
+              </tr>
+            
+              <tr>
+                <td>UpdateOwnComment</td>
+                <td><a href="#blog.UpdateCommentRequest">UpdateCommentRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Cập nhật bình luận của bản thân</p></td>
+              </tr>
+            
+              <tr>
+                <td>DeleteComment</td>
+                <td><a href="#blog.DeleteCommentRequest">DeleteCommentRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Xóa bình luận</p></td>
+              </tr>
+            
+              <tr>
+                <td>DeleteCommentsOfPost</td>
+                <td><a href="#blog.DeleteCommentsOfPostRequest">DeleteCommentsOfPostRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Xóa bình luận bài viết</p></td>
+              </tr>
+            
+              <tr>
+                <td>DeleteCommentsOfOwnPost</td>
+                <td><a href="#blog.DeleteCommentsOfOwnPostRequest">DeleteCommentsOfOwnPostRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Xóa bình luận bài viết của bản thân</p></td>
+              </tr>
+            
+              <tr>
+                <td>DeleteOwnComment</td>
+                <td><a href="#blog.DeleteCommentRequest">DeleteCommentRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Xóa bình luận của bản thân</p></td>
+              </tr>
+            
+              <tr>
+                <td>VoteComment</td>
+                <td><a href="#blog.VoteCommentRequest">VoteCommentRequest</a></td>
+                <td><a href="#blog.ResultResponse">ResultResponse</a></td>
+                <td><p>Vote bình luận</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="base.proto">base.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="blog.AuthorFollow">AuthorFollow</h3>
+        <p>Bảng lưu danh sách AuthorFollow</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>author_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id tác giả được follow </p></td>
+                </tr>
+              
+                <tr>
+                  <td>follower_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id người follow </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.AuthorStats">AuthorStats</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>number_of_posts</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Tổng số lượng bài viết </p></td>
+                </tr>
+              
+                <tr>
+                  <td>number_of_votes</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Tổng số lượt vote trong tất cả các bài viết </p></td>
+                </tr>
+              
+                <tr>
+                  <td>number_of_views</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Tổng số lượt xem trong tất cả các bài viết </p></td>
+                </tr>
+              
+                <tr>
+                  <td>categories</td>
+                  <td><a href="#blog.Category">Category</a></td>
+                  <td></td>
+                  <td><p>Danh sách các danh mục mà tác giả đã viết bài </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.Bookmark">Bookmark</h3>
+        <p>Bảng lưu danh sách Bookmark</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bài viết </p></td>
+                </tr>
+              
+                <tr>
+                  <td>post</td>
+                  <td><a href="#blog.Post">Post</a></td>
+                  <td></td>
+                  <td><p>foreign key </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.Category">Category</h3>
+        <p>Bảng lưu danh sách Category</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Id Category </p></td>
+                </tr>
+              
+                <tr>
+                  <td>title</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tên hiển thị của Category </p></td>
+                </tr>
+              
+                <tr>
+                  <td>slug</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tên hiển thị trên đường dẫn </p></td>
+                </tr>
+              
+                <tr>
+                  <td>icon</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Icon của Category </p></td>
+                </tr>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Mô tả Category </p></td>
+                </tr>
+              
+                <tr>
+                  <td>post_count</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Số lượng bài viết </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.Comment">Comment</h3>
+        <p>Bảng lưu danh sách bình luận</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bình luận (uuid) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>parent_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bình luận được trả lời </p></td>
+                </tr>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bài viết </p></td>
+                </tr>
+              
+                <tr>
+                  <td>post</td>
+                  <td><a href="#blog.Post">Post</a></td>
+                  <td></td>
+                  <td><p>foreign key </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id User </p></td>
+                </tr>
+              
+                <tr>
+                  <td>content_html</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Nội dung bình luận dạng HTML </p></td>
+                </tr>
+              
+                <tr>
+                  <td>content_markdown</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Nội dung bình luận dạng Markdown </p></td>
+                </tr>
+              
+                <tr>
+                  <td>vote_score</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Tổng điểm Vote </p></td>
+                </tr>
+              
+                <tr>
+                  <td>created_at</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Thời điểm bình luận </p></td>
+                </tr>
+              
+                <tr>
+                  <td>modified_at</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Thời điểm chỉnh sửa cuối cùng </p></td>
+                </tr>
+              
+                <tr>
+                  <td>modified_by</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Người chỉnh sửa cuối cùng </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.CommentVote">CommentVote</h3>
+        <p>Bảng lưu Vote cho bình luận</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>comment_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bình luận </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id User </p></td>
+                </tr>
+              
+                <tr>
+                  <td>vote</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Up vote &#43;1, Down vote -1 </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.EmptyRequest">EmptyRequest</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id="blog.Pagination">Pagination</h3>
+        <p>Thông tin phân trang</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>columns</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Danh sách các cột cần lấy </p></td>
+                </tr>
+              
+                <tr>
+                  <td>order_by_column</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Sắp xếp theo cột nào </p></td>
+                </tr>
+              
+                <tr>
+                  <td>order_by_direction</td>
+                  <td><a href="#blog.Pagination.Direction">Pagination.Direction</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>current_page</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Trang hiện tại </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.Post">Post</h3>
+        <p>Bảng lưu danh sách Post</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bài viết (uuid) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>category_id</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Id danh mục </p></td>
+                </tr>
+              
+                <tr>
+                  <td>category</td>
+                  <td><a href="#blog.Category">Category</a></td>
+                  <td></td>
+                  <td><p>foreign key </p></td>
+                </tr>
+              
+                <tr>
+                  <td>author_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id tác giả </p></td>
+                </tr>
+              
+                <tr>
+                  <td>author_name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Họ tên tác giả </p></td>
+                </tr>
+              
+                <tr>
+                  <td>author_avatar</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Avatar tác giả </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tag_ids</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Mảng các tag </p></td>
+                </tr>
+              
+                <tr>
+                  <td>title</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tiêu đề bài viết </p></td>
+                </tr>
+              
+                <tr>
+                  <td>slug</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tên hiển thị trên đường dẫn (chuẩn hóa lại tiêu đề theo URL) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Mô tả ngắn gọn của bài viết </p></td>
+                </tr>
+              
+                <tr>
+                  <td>content_html</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Nội dung bài viết dưới dạng HTML </p></td>
+                </tr>
+              
+                <tr>
+                  <td>content_markdown</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Nội dung bài viết dưới dạng Markdown </p></td>
+                </tr>
+              
+                <tr>
+                  <td>thumbnail</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Ảnh dại diện </p></td>
+                </tr>
+              
+                <tr>
+                  <td>vote_score</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Tổng điểm Vote </p></td>
+                </tr>
+              
+                <tr>
+                  <td>bookmark_count</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Số lượng bookmark </p></td>
+                </tr>
+              
+                <tr>
+                  <td>view_count</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Số lượt view </p></td>
+                </tr>
+              
+                <tr>
+                  <td>status</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Trạng thái của bài viết: Draft=0, Chờ kiểm duyệt=1  và Publish=2 </p></td>
+                </tr>
+              
+                <tr>
+                  <td>is_anonymous</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Bài viết có hiển thị tên tác giả hay không (ẩn danh) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>published_at</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Ngày xuất bản </p></td>
+                </tr>
+              
+                <tr>
+                  <td>created_at</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Thời điểm tạo bài viết </p></td>
+                </tr>
+              
+                <tr>
+                  <td>modified_at</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Thời điểm chỉnh sửa cuối cùng </p></td>
+                </tr>
+              
+                <tr>
+                  <td>modified_by</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Người chỉnh sửa cuối cùng </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.PostVote">PostVote</h3>
+        <p>Bảng lưu Vote cho bài viết</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bài viết </p></td>
+                </tr>
+              
+                <tr>
+                  <td>post</td>
+                  <td><a href="#blog.Post">Post</a></td>
+                  <td></td>
+                  <td><p>foreign key </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id User </p></td>
+                </tr>
+              
+                <tr>
+                  <td>vote</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Up vote &#43;1, Down vote -1 </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.ResultResponse">ResultResponse</h3>
+        <p>Response với Id trạng thái</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>status</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Kết quả trả về </p></td>
+                </tr>
+              
+                <tr>
+                  <td>message</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Thông báo lỗi </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.Tag">Tag</h3>
+        <p>Bảng lưu danh sách Tag</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id Tag (uuid) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>title</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tên hiển thị của Tag </p></td>
+                </tr>
+              
+                <tr>
+                  <td>slug</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tên hiển thị trên đường dẫn </p></td>
+                </tr>
+              
+                <tr>
+                  <td>icon</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Icon của Tag </p></td>
+                </tr>
+              
+                <tr>
+                  <td>post_count</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Số lượng bài viết sử dụng </p></td>
+                </tr>
+              
+                <tr>
+                  <td>created_at</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Thời điểm tạo Tag </p></td>
+                </tr>
+              
+                <tr>
+                  <td>created_by</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Người tạo </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.TagFollow">TagFollow</h3>
+        <p>Bảng lưu danh sách TagFollow</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tag_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id Tag
+
+foreign key </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tag</td>
+                  <td><a href="#blog.Tag">Tag</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+
+      
+        <h3 id="blog.Pagination.Direction">Pagination.Direction</h3>
+        <p>Sắp xếp theo chiều nào</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>ASC</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>DESC</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="blog_author.proto">blog_author.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="blog.FollowAuthorRequest">FollowAuthorRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>author_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id tác giả </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetAuthorByIdRequest">GetAuthorByIdRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>author_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id tác giả </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetAuthorByIdResponse">GetAuthorByIdResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>author_stats</td>
+                  <td><a href="#blog.AuthorStats">AuthorStats</a></td>
+                  <td></td>
+                  <td><p>Trả về thông tin tác giả bài viết </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetAuthorFollowRequest">GetAuthorFollowRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>author_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id tác giả </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetAuthorFollowResponse">GetAuthorFollowResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>follow_author</td>
+                  <td><a href="#auth.User">auth.User</a></td>
+                  <td>repeated</td>
+                  <td><p>Danh sách User theo dõi tác giả </p></td>
+                </tr>
+              
+                <tr>
+                  <td>author_follow</td>
+                  <td><a href="#auth.User">auth.User</a></td>
+                  <td>repeated</td>
+                  <td><p>Danh sách User tác giả theo dõi </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetHotAuthorsResponse">GetHotAuthorsResponse</h3>
+        <p>TODO</p>
+
+        
+
+        
+      
+        <h3 id="blog.GetPersonalBlogInfoResponse">GetPersonalBlogInfoResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>author_stats</td>
+                  <td><a href="#blog.AuthorStats">AuthorStats</a></td>
+                  <td></td>
+                  <td><p>Trả về thông tin tác giả bài viết </p></td>
+                </tr>
+              
+                <tr>
+                  <td>number_of_bookmark</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Số lượng bài viết đã bookmark </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetPersonalFollowResponse">GetPersonalFollowResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>follow_personal</td>
+                  <td><a href="#auth.User">auth.User</a></td>
+                  <td>repeated</td>
+                  <td><p>Danh sách User theo dõi cá nhân </p></td>
+                </tr>
+              
+                <tr>
+                  <td>personal_follow</td>
+                  <td><a href="#auth.User">auth.User</a></td>
+                  <td>repeated</td>
+                  <td><p>Danh sách User mà cá nhân theo dõi </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetPublishedPostsByAuthorRequest">GetPublishedPostsByAuthorRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>author_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id của tác giả </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetSameAuthorPublishedPostsRequest">GetSameAuthorPublishedPostsRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>author_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id của tác giả </p></td>
+                </tr>
+              
+                <tr>
+                  <td>current_post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bài viết hiện tại </p></td>
+                </tr>
+              
+                <tr>
+                  <td>number_same_posts</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Số bài viết tương tự muốn hiển thị </p></td>
+                </tr>
+              
+                <tr>
+                  <td>same_posts</td>
+                  <td><a href="#blog.Post">Post</a></td>
+                  <td>repeated</td>
+                  <td><p>Danh sách bài viết tương tự </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.UnFollowAuthorRequest">UnFollowAuthorRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>author_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id tác giả </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="blog_category.proto">blog_category.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="blog.CreateCategoryRequest">CreateCategoryRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>category</td>
+                  <td><a href="#blog.Category">Category</a></td>
+                  <td></td>
+                  <td><p>Tạo Danh mục - Dữ liệu truyền vào: title, slug, icon, description </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.CreateCategoryResponse">CreateCategoryResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>category</td>
+                  <td><a href="#blog.Category">Category</a></td>
+                  <td></td>
+                  <td><p>Trả về danh mục vừa tạo </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.DeleteCategoryRequest">DeleteCategoryRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Id danh mục </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetCategoriesRequest">GetCategoriesRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Dữ liệu phân trang và sorting </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetCategoriesResponse">GetCategoriesResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>category</td>
+                  <td><a href="#blog.Category">Category</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách danh mục </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetCategoryByIdRequest">GetCategoryByIdRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Id của danh mục </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetCategoryByIdResponse">GetCategoryByIdResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>category</td>
+                  <td><a href="#blog.Category">Category</a></td>
+                  <td></td>
+                  <td><p>Trả về danh mục </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetPublishedPostsByCategoryRequest">GetPublishedPostsByCategoryRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Id của danh mục </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetPublishedPostsByCategoryResponse">GetPublishedPostsByCategoryResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post</td>
+                  <td><a href="#blog.Post">Post</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách bài viết Public thuộc danh mục </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.UpdateCategoryRequest">UpdateCategoryRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>category</td>
+                  <td><a href="#blog.Category">Category</a></td>
+                  <td></td>
+                  <td><p>Cập nhật danh mục </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.UpdateCategoryResponse">UpdateCategoryResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>category</td>
+                  <td><a href="#blog.Category">Category</a></td>
+                  <td></td>
+                  <td><p>Trả về danh mục vừa cập nhật </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="blog_comment.proto">blog_comment.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="blog.CreateCommentRequest">CreateCommentRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>comment</td>
+                  <td><a href="#blog.Comment">Comment</a></td>
+                  <td></td>
+                  <td><p>Tạo comment - Dữ liệu truyền vào: parent_id, post_id, content_html, content_markdown </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.DeleteCommentRequest">DeleteCommentRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>comment_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id comment muốn xóa </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.DeleteCommentsOfOwnPostRequest">DeleteCommentsOfOwnPostRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bài viết của tôi muốn xóa comment </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.DeleteCommentsOfPostRequest">DeleteCommentsOfPostRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bài viết muốn xóa comment </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetCommentsOfPostRequest">GetCommentsOfPostRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bài viết </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetCommentsOfPostResponse">GetCommentsOfPostResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>list_comment</td>
+                  <td><a href="#blog.Comment">Comment</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách comment thuộc bài viết </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetReplyCommentsRequest">GetReplyCommentsRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bài viết </p></td>
+                </tr>
+              
+                <tr>
+                  <td>parent_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id comment cha </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetReplyCommentsResponse">GetReplyCommentsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>list_comment</td>
+                  <td><a href="#blog.Comment">Comment</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách reply của comment </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.UpdateCommentRequest">UpdateCommentRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>comment</td>
+                  <td><a href="#blog.Comment">Comment</a></td>
+                  <td></td>
+                  <td><p>Cập nhật comment </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.VoteCommentRequest">VoteCommentRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>comment_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Vote comment </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="blog_post.proto">blog_post.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="blog.BookmarkRequest">BookmarkRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Bookmark bài viết </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.CreatePostRequest">CreatePostRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post</td>
+                  <td><a href="#blog.Post">Post</a></td>
+                  <td></td>
+                  <td><p>Tạo bài viết - Dữ liệu truyền vào: </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.CreatePostResponse">CreatePostResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post</td>
+                  <td><a href="#blog.Post">Post</a></td>
+                  <td></td>
+                  <td><p>Trả về bài viết vừa tạo </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.DeletePostRequest">DeletePostRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bài viết muốn xóa </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetOwnPostsRequest">GetOwnPostsRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetPostByIdRequest">GetPostByIdRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bài viết </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetPostByIdResponse">GetPostByIdResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post</td>
+                  <td><a href="#blog.Post">Post</a></td>
+                  <td></td>
+                  <td><p>Trả về bài viết </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetPostsRequest">GetPostsRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetPublishedPostsResquest">GetPublishedPostsResquest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetRelatedPostsRequest">GetRelatedPostsRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id danh sách bài viết muốn lấy danh sách liên quan </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.ListPostsResponse">ListPostsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post</td>
+                  <td><a href="#blog.Post">Post</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách bài viết </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.PublishPostRequest">PublishPostRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id bài viết muốn thay đổi trạng thái </p></td>
+                </tr>
+              
+                <tr>
+                  <td>status</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Trạng thái muốn thay đổi </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.SearchPostsRequest">SearchPostsRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>keyword</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Từ khóa tìm kiếm </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.UpdatePostRequest">UpdatePostRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post</td>
+                  <td><a href="#blog.Post">Post</a></td>
+                  <td></td>
+                  <td><p>Cập nhật bài viết </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.UpdatePostResponse">UpdatePostResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post</td>
+                  <td><a href="#blog.Post">Post</a></td>
+                  <td></td>
+                  <td><p>Trả về bài viết vừa cập nhật </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.VoteDownPostRequest">VoteDownPostRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Vote down bài viết </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.VoteUpPostRequest">VoteUpPostRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>post_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Vote Up bài viết </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="blog_tag.proto">blog_tag.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="blog.CreateTagRequest">CreateTagRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tag</td>
+                  <td><a href="#blog.Tag">Tag</a></td>
+                  <td></td>
+                  <td><p>Tạo tag </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.CreateTagResponse">CreateTagResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tag</td>
+                  <td><a href="#blog.Tag">Tag</a></td>
+                  <td></td>
+                  <td><p>Trả về tag vừa tạo </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.FollowTagRequest">FollowTagRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tag_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id tag </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetFollowingTagsResponse">GetFollowingTagsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tag</td>
+                  <td><a href="#blog.Tag">Tag</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách tag đang theo dõi </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetPopularTagsRequest">GetPopularTagsRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>number_of_tag</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Lấy danh sách Tag thông dụng </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetPopularTagsResponse">GetPopularTagsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tag</td>
+                  <td><a href="#blog.Tag">Tag</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách tag thông dụng </p></td>
+                </tr>
+              
+                <tr>
+                  <td>number_of_post</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Số lượng post có gắn tag </p></td>
+                </tr>
+              
+                <tr>
+                  <td>number_of_follower</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Số lượng user theo dõi tag </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetPublishedPostsByTagRequest">GetPublishedPostsByTagRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tag_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id của tag </p></td>
+                </tr>
+              
+                <tr>
+                  <td>post</td>
+                  <td><a href="#blog.Post">Post</a></td>
+                  <td>repeated</td>
+                  <td><p>Danh sách bài viết chế độ publish có gắn tag </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetTagsRequest">GetTagsRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.GetTagsResponse">GetTagsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tag</td>
+                  <td><a href="#blog.Tag">Tag</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách tag </p></td>
+                </tr>
+              
+                <tr>
+                  <td>number_of_post</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Số lượng post có gắn tag </p></td>
+                </tr>
+              
+                <tr>
+                  <td>number_of_follower</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Số lượng user theo dõi tag </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.SearchTagsRequest">SearchTagsRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>keyword</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Từ khóa tìm kiếm </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#blog.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.SearchTagsResponse">SearchTagsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tag</td>
+                  <td><a href="#blog.Tag">Tag</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách tag tìm kiếm </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="blog.UnFollowTagRequest">UnFollowTagRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tag_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id tag </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+
+      
+
+      
+
+      
+    
+
+    <h2 id="scalar-value-types">Scalar Value Types</h2>
+    <table class="scalar-value-types-table">
+      <thead>
+        <tr><td>.proto Type</td><td>Notes</td><td>C++ Type</td><td>Java Type</td><td>Python Type</td></tr>
+      </thead>
+      <tbody>
+        
+          <tr id="double">
+            <td>double</td>
+            <td></td>
+            <td>double</td>
+            <td>double</td>
+            <td>float</td>
+          </tr>
+        
+          <tr id="float">
+            <td>float</td>
+            <td></td>
+            <td>float</td>
+            <td>float</td>
+            <td>float</td>
+          </tr>
+        
+          <tr id="int32">
+            <td>int32</td>
+            <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+          </tr>
+        
+          <tr id="int64">
+            <td>int64</td>
+            <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+          </tr>
+        
+          <tr id="uint32">
+            <td>uint32</td>
+            <td>Uses variable-length encoding.</td>
+            <td>uint32</td>
+            <td>int</td>
+            <td>int/long</td>
+          </tr>
+        
+          <tr id="uint64">
+            <td>uint64</td>
+            <td>Uses variable-length encoding.</td>
+            <td>uint64</td>
+            <td>long</td>
+            <td>int/long</td>
+          </tr>
+        
+          <tr id="sint32">
+            <td>sint32</td>
+            <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+          </tr>
+        
+          <tr id="sint64">
+            <td>sint64</td>
+            <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+          </tr>
+        
+          <tr id="fixed32">
+            <td>fixed32</td>
+            <td>Always four bytes. More efficient than uint32 if values are often greater than 2^28.</td>
+            <td>uint32</td>
+            <td>int</td>
+            <td>int</td>
+          </tr>
+        
+          <tr id="fixed64">
+            <td>fixed64</td>
+            <td>Always eight bytes. More efficient than uint64 if values are often greater than 2^56.</td>
+            <td>uint64</td>
+            <td>long</td>
+            <td>int/long</td>
+          </tr>
+        
+          <tr id="sfixed32">
+            <td>sfixed32</td>
+            <td>Always four bytes.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+          </tr>
+        
+          <tr id="sfixed64">
+            <td>sfixed64</td>
+            <td>Always eight bytes.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+          </tr>
+        
+          <tr id="bool">
+            <td>bool</td>
+            <td></td>
+            <td>bool</td>
+            <td>boolean</td>
+            <td>boolean</td>
+          </tr>
+        
+          <tr id="string">
+            <td>string</td>
+            <td>A string must always contain UTF-8 encoded or 7-bit ASCII text.</td>
+            <td>string</td>
+            <td>String</td>
+            <td>str/unicode</td>
+          </tr>
+        
+          <tr id="bytes">
+            <td>bytes</td>
+            <td>May contain any arbitrary sequence of bytes.</td>
+            <td>string</td>
+            <td>ByteString</td>
+            <td>str</td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </body>
+</html>
+

@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package media;
+
+import "base.proto";
+import "media_file.proto";
+import "media_image.proto";
+
+service media {
+    /* Image */
+
+    rpc UploadImage (UploadImageRequest) returns (ResultResponse);
+
+    rpc GetImage (GetImageByIdRequest) returns (GetImageByIdResponse);
+
+    rpc UploadFile (UploadFileRequest) returns (UploadFileResponse);
+
+    rpc GetFileByID (GetFilesByIdRequest) returns (GetFileByIdResponse);
+
+    //
+    //  rpc GetOwnImage(GetOwnImageRequest) returns (GetOwnImageResponse);
+    //
+    //  rpc GetImageById(GetImageByIdRequest) returns (GetImageByIdResponse);
+    //
+    //  rpc GetImagesByIds(GetImagesByIdsRequest) returns (GetImagesByIdsResponse);
+    //
+    //  rpc UpdateImage(UpdateImageRequest) returns (UpdateImageResponse);
+    //
+    //  rpc DeleteImages(DeleteImagesRequest) returns (DeleteImagesResponse);
+    //
+    //  /* ------------------------------------------------------- */
+    //
+    //  /* File */
+    //
+    //  rpc UploadFile(UploadFileRequest) returns (ResultResponse);
+    //
+    //  rpc GetFile(GetFileRequest) returns (GetFileResponse);
+    //
+    //  rpc GetOwnFile(GetOwnFileRequest) returns (GetOwnFileResponse);
+    //
+    //  rpc GetFileById(GetFileByIdRequest) returns (GetFileByIdResponse);
+    //
+    //  rpc GetFilesByIds(GetFilesByIdsRequest) returns (GetFilesByIdsResponse);
+    //
+    //  rpc UpdateFile(UpdateFileRequest) returns (UpdateFileResponse);
+    //
+    //  rpc DeleteFiles(DeleteFilesRequest) returns (DeleteFilesResponse);
+
+    /* ------------------------------------------------------- */
+
+}

@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package media;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
+
+/* Request không có tham số */
+message EmptyRequest {
+}
+
+/* Response với mã trạng thái */
+message ResultResponse {
+    // Kết quả trả về
+    bool status = 1;
+
+    // Thông báo lỗi
+    string message = 2;
+}
+
+// Thông tin phân trang
+message Pagination {
+    // Danh sách các cột cần lấy
+    repeated string columns = 1;
+
+    // Sắp xếp theo cột nào
+    string order_by_column = 2;
+
+    // Sắp xếp theo chiều nào
+    enum Direction {
+        ASC = 0;
+        DESC = 1;
+    }
+    Direction order_by_direction = 3;
+
+    // Trang hiện tại
+    int32 current_page = 4;
+}
+
+message Image {
+    int32 id = 1;
+
+    // Link
+    string link = 2;
+
+    // Type
+    string type = 3;
+
+    // Ngày tài khoản được tạo
+    google.protobuf.Timestamp upload_at = 4 [(gogoproto.stdtime) = true, (gogoproto.nullable) = false, (gogoproto.moretags) = "sql:\"default:now()\""];
+
+    // Id người tạo tài khoản, Null là người dùng tự đăng ký tài khoản
+    string upload_by = 5;
+
+    // Ngày gần nhất tài khoản cập nhật thông tin
+    google.protobuf.Timestamp modified_at = 6 [(gogoproto.stdtime) = true, (gogoproto.nullable) = false, (gogoproto.moretags) = "sql:\"default:now()\""];
+
+    // Người cập nhật thông tin tài khoản gần nhất
+    string modified_by = 7;
+}
+
+message File {
+    int32 id = 1;
+
+    // Link
+    string path = 2;
+
+    // Type
+    string type = 3;
+
+    // Ngày tài khoản được tạo
+    google.protobuf.Timestamp upload_at = 4 [(gogoproto.stdtime) = true, (gogoproto.nullable) = false, (gogoproto.moretags) = "sql:\"default:now()\""];
+
+    // Id người tạo tài khoản, Null là người dùng tự đăng ký tài khoản
+    int32 upload_by = 5;
+
+    // Ngày gần nhất tài khoản cập nhật thông tin
+    google.protobuf.Timestamp modified_at = 6 [(gogoproto.stdtime) = true, (gogoproto.nullable) = false, (gogoproto.moretags) = "sql:\"default:now()\""];
+
+    // Người cập nhật thông tin tài khoản gần nhất
+    int32 modified_by = 7;
+
+    int64 size = 8;
+
+    string name = 9;
+}

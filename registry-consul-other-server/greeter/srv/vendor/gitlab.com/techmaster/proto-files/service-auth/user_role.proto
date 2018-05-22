@@ -1,0 +1,103 @@
+syntax = "proto3";
+
+package auth;
+
+import "base.proto";
+
+message CreateRoleRequest {
+  // Tạo đối tượng Role
+  Role role = 1;
+}
+
+message CreateRoleResponse {
+  // Trả về Role vừa tạo
+  Role role = 1;
+}
+
+message GetRolesRequest {
+  // Dữ liệu phân trang và sorting
+  Pagination data = 1;
+}
+
+message GetRolesResponse {
+  // Trả về danh sách Role tương ứng
+  repeated Role roles = 1;
+}
+
+message GetRoleByIdRequest {
+  // Id của Role
+  int32 id = 1;
+}
+
+message GetRoleByIdResponse {
+  // Trả về đối tượng Role và các method role được truy cập
+  Role role = 1;
+  repeated Permission permissions = 2;
+}
+
+message UpdateRoleRequest {
+  // Cập nhật Role
+  Role role = 2;
+  // Phân trang
+  repeated Permission permissions = 3;
+}
+
+message UpdateRoleResponse {
+  // Trả về Role vừa cập nhật
+  Role role = 1;
+  // Phân trang
+  repeated Permission permissions = 2;
+}
+
+message DeleteRoleRequest {
+  // Id của Role
+  int32 id = 1;
+}
+
+message GetAllPermissionsResponse {
+  // Trả về tất cả các quyền hiện có
+  repeated Permission permissions = 1;
+}
+
+message SetPublicPermissionsRequest {
+  // Danh sách quyền muốn set Public/Private
+  repeated Permission permissions = 1;
+}
+
+message GetPrivatePermissionsResponse {
+  // Trả về danh sách quyền Private
+  repeated Permission permissions = 1;
+}
+
+message SetRolesforPrivatePermissionsRequest {
+  // Danh sách quyền muốn gán cho Role
+  repeated Permission permissions = 1;
+}
+
+message GetUsersbyRoleRequest {
+  // Lấy danh sách User của Role
+  Role role = 1;
+  // Phân trang
+  Pagination data = 2;
+}
+
+message GetUsersbyRoleResponse {
+  // Trả về danh sách User thuộc Role 
+  repeated User users = 1;
+}
+
+message AuthorizeRequest {
+  // Service
+  string service = 1;
+  // Method
+  string method = 2;
+  // Token
+  string access_token = 3;
+}
+
+message AuthorizeResponse {
+  // Trả về trạng thái sau khi xác thực
+  bool is_authorized = 1;
+  // Id User
+  string user_id = 2;
+}

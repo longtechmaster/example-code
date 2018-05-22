@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package blog;
+
+import "base.proto";
+import "gitlab.com/techmaster/proto-files/service-auth/base.proto";
+
+message GetPersonalBlogInfoResponse {
+  // Trả về thông tin tác giả bài viết
+  AuthorStats author_stats = 1;
+  // Số lượng bài viết đã bookmark 
+  int32 number_of_bookmark = 2;
+}
+
+message GetAuthorByIdRequest {
+  // Id tác giả
+  string author_id = 1;
+}
+
+message GetAuthorByIdResponse {
+  // Trả về thông tin tác giả bài viết
+  AuthorStats author_stats = 1;
+}
+
+message GetHotAuthorsResponse {
+  // TODO
+}
+
+message GetPublishedPostsByAuthorRequest {
+  // Id của tác giả
+  string author_id = 1;
+  // Phân trang
+  Pagination data = 2;
+}
+
+message GetSameAuthorPublishedPostsRequest {
+  // Id của tác giả
+  string author_id = 1;  
+  // Id bài viết hiện tại
+  string current_post_id = 2;
+  // Số bài viết tương tự muốn hiển thị
+  int32 number_same_posts = 3;
+  // Danh sách bài viết tương tự
+  repeated Post same_posts = 4;
+}
+
+message FollowAuthorRequest {
+  // Id tác giả
+  string author_id = 1;
+}
+
+message UnFollowAuthorRequest {
+  // Id tác giả
+  string author_id = 1;
+}
+
+message GetPersonalFollowResponse {
+  // Danh sách User theo dõi cá nhân
+  repeated auth.User follow_personal = 1;
+  // Danh sách User mà cá nhân theo dõi
+  repeated auth.User personal_follow = 2;
+  // Phân trang
+  Pagination data = 3;
+}
+
+message GetAuthorFollowRequest {
+  // Id tác giả
+  string author_id = 1;
+}
+
+message GetAuthorFollowResponse {
+  // Danh sách User theo dõi tác giả
+  repeated auth.User follow_author = 1;
+  // Danh sách User tác giả theo dõi
+  repeated auth.User author_follow = 2;
+  // Phân trang
+  Pagination data = 3;
+}
+ 

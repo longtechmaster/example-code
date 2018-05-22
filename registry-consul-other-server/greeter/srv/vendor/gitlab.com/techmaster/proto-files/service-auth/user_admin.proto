@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package auth;
+
+import "base.proto";
+
+message CreateUserPropertyRequest {
+  // Tạo thêm thuộc tính cho User
+  UserProperty user_property = 1;
+}
+
+message GetUserPropertiesResponse {
+  // Trả về danh sách thuộc tính User
+  repeated UserProperty user_properties = 1;
+} 
+
+message CreateUserRequest {
+  // Tạo đối tượng User - Dữ liệu truyền vào: full_name, username, email, password, phone, avatar, roles
+  User user = 1;
+}
+
+message CreateUserResponse {
+  // Kết quả tạo User
+  ResultResponse status = 1;
+
+  // Trả về đối tượng User nếu tạo thành công
+  User user = 2;
+}
+
+message GetUsersRequest {
+  // Dữ liệu phân trang và sorting
+  Pagination data = 1;
+}
+
+message GetUsersResponse {
+  // Trả về danh sách User tương ứng
+  repeated User users = 1;
+}
+
+message SearchUsersRequest {
+  // Từ khóa tìm kiếm
+  string keyword = 1;
+
+  // Dữ liệu phân trang và sorting
+  Pagination data = 2;
+}
+
+message SearchUsersResponse {
+  // Trả về danh sách User tương ứng
+  repeated User users = 1;
+}
+
+message GetUserByIdRequest {
+  // Id của User
+  string id = 1;
+}
+
+message GetUserByIdResponse {
+  // Trả về đối tượng User
+  User user = 1;
+}
+
+message GetUsersByIdsRequest {
+  // Danh sách Id của các User
+  repeated string ids = 1;
+}
+
+message GetUsersByIdsResponse {
+  // Trả về danh sách User tương ứng
+  repeated User users = 1;
+}
+
+message UpdateUserRequest {
+  // Cập nhật User
+  User user = 1;
+}
+
+message UpdateUserResponse {
+  // Kết quả cập nhật
+  ResultResponse status = 1;
+
+  // Trả về đối tượng User
+  User user = 2;
+}
+
+message DeleteUserRequest {
+  // Id của User
+  string id = 1;
+}

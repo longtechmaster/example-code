@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+package auth;
+
+import "base.proto";
+import "user_member.proto";
+import "user_admin.proto";
+import "user_role.proto";
+import "service_other.proto";
+
+service auth {
+  /* Member */
+
+  // Đăng ký tài khoản (cần có captcha chống spam)
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
+
+  // Đăng ký tài khoản qua Facebook
+  rpc RegisterUserByFacebook(RegisterUserByFacebookRequest) returns (RegisterUserByFacebookResponse);
+
+  // Đăng ký tài khoản qua Google
+  rpc RegisterUserByGoogle(RegisterUserByGoogleRequest) returns (RegisterUserByGoogleResponse);
+
+  // Đăng nhập (có khóa tài khoản nếu đăng nhập sai nhiều lần)
+  rpc Login(LoginRequest) returns (LoginResponse);
+
+  // Quên mật khẩu (gửi email reset mật khẩu)
+  rpc ForgotPassword(ForgotPasswordRequest) returns (ResultResponse);
+
+  // Reset mật khẩu (lấy đường dẫn trong email, kiểm tra tính hợp lệ của token trong đường dẫn)
+  rpc ResetPassword(ResetPasswordRequest) returns (ResultResponse);
+
+  // Gửi xác thực email (gửi email xác thực)
+  rpc SendVerifyEmail(SendVerifyEmailRequest) returns (ResultResponse);
+
+  // Xác thực email (lấy đường dẫn trong email, kiểm tra tính hợp lệ của token trong đường dẫn)
+  rpc VerifyEmail(VerifyEmailRequest) returns (ResultResponse);
+
+  // Lấy thông tin cá nhân
+  rpc GetProfile(EmptyRequest) returns (GetProfileResponse);
+
+  // Cập nhật thông tin cá nhân
+  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
+
+  // Đổi mật khẩu
+  rpc ChangePassword(ChangePasswordRequest) returns (ResultResponse);
+
+  // Đổi email (cần xác thực email mới, dùng lại hàm VerifyEmail)
+  rpc ChangeEmail(ChangeEmailRequest) returns (ResultResponse);
+
+  /* ------------------------------------------------------- */
+
+  
+  /* Admin */
+
+  // Tạo thêm thuộc tính cho User (user info)
+  rpc CreateUserProperty(CreateUserPropertyRequest) returns (ResultResponse);
+
+  // Lấy ra các thuộc tính cho User (user info)
+  rpc GetUserProperties(EmptyRequest) returns (GetUserPropertiesResponse);
+
+  // Tạo User
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+
+  // Lấy danh sách User (có phân trang, sorting)
+  rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
+
+  // Tìm kiếm User theo từ khóa
+  rpc SearchUsers(SearchUsersRequest) returns (SearchUsersResponse);
+
+  // Lấy thông tin User theo Id
+  rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
+
+  // Lấy danh sách User theo danh sách Id
+  rpc GetUsersByIds(GetUsersByIdsRequest) returns (GetUsersByIdsResponse);
+
+  // Cập nhật thông tin User
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+
+  // Xóa User (không được xóa tài khoản Super Admin)
+  rpc DeleteUser(DeleteUserRequest) returns (ResultResponse);
+
+  /* ------------------------------------------------------- */
+
+
+  /* Role */
+
+  // Tạo Role
+  rpc CreateRole(CreateRoleRequest) returns (CreateRoleResponse);
+
+  // Lấy danh sách Role (có phân trang, sorting)
+  rpc GetRoles(GetRolesRequest) returns (GetRolesResponse);
+
+  // Lấy thông tin Role theo Id
+  rpc GetRoleById(GetRoleByIdRequest) returns (GetRoleByIdResponse);
+
+  // Cập nhật Role
+  rpc UpdateRole(UpdateRoleRequest) returns (UpdateRoleResponse);
+
+  // Xóa Role
+  rpc DeleteRole(DeleteRoleRequest) returns (ResultResponse);
+
+  // Lấy ra danh sách tất cả các Service và Method
+  rpc GetAllPermissions(EmptyRequest) returns (GetAllPermissionsResponse);
+
+  // Thiết lập chế độ Public cho các Service và Method 
+  rpc SetPublicPermissions(SetPublicPermissionsRequest) returns (ResultResponse);
+
+  // Lấy ra danh sách các Service và Method ở chế độ Private
+  rpc GetPrivatePermissions(EmptyRequest) returns (GetPrivatePermissionsResponse);
+
+  // Thiết lập quyền cho các Service và Method ở chế độ Private
+  rpc SetRolesforPrivatePermissions(SetRolesforPrivatePermissionsRequest) returns (ResultResponse);
+
+  // Lọc User theo Role
+  rpc GetUsersbyRole(GetUsersbyRoleRequest) returns (GetUsersbyRoleResponse);
+
+  // Kiểm tra quyền truy cập vào một Method
+  rpc Authorize(AuthorizeRequest) returns (AuthorizeResponse);
+
+  /* ------------------------------------------------------- */
+
+  // Khai báo các Service/Method từ Service-Video
+  rpc UpdatePermissionsFromOtherService(UpdatePermissionsFromOtherServiceRequest) returns (ResultResponse);
+
+}

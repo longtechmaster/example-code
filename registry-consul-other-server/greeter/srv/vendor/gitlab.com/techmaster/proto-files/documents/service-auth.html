@@ -1,0 +1,2743 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Protocol Documentation</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic"/>
+    <style>
+      body {
+        width: 60em;
+        margin: 1em auto;
+        color: #222;
+        font-family: "Ubuntu", sans-serif;
+        padding-bottom: 4em;
+      }
+
+      h1 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      h2 {
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+        margin: 1.5em 0;
+      }
+
+      h3 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      a {
+        text-decoration: none;
+        color: #567e25;
+      }
+
+      table {
+        width: 100%;
+        font-size: 80%;
+        border-collapse: collapse;
+      }
+
+      thead {
+        font-weight: 700;
+        background-color: #dcdcdc;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #fbfbfb;
+      }
+
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5ex 2ex;
+      }
+
+      td p {
+        text-indent: 1em;
+        margin: 0;
+      }
+
+      td p:nth-child(1) {
+        text-indent: 0;  
+      }
+
+       
+      .field-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .field-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .field-table td:nth-child(3) {  
+        width: 6em;
+      }
+      .field-table td:nth-child(4) {  
+        width: auto;
+      }
+
+       
+      .extension-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(3) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(4) {  
+        width: 5em;
+      }
+      .extension-table td:nth-child(5) {  
+        width: auto;
+      }
+
+       
+      .enum-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .enum-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .enum-table td:nth-child(3) {  
+        width: auto;
+      }
+
+       
+      .scalar-value-types-table tr {
+        height: 3em;
+      }
+
+       
+      #toc-container ul {
+        list-style-type: none;
+        padding-left: 1em;
+        line-height: 180%;
+        margin: 0;
+      }
+      #toc > li > a {
+        font-weight: bold;
+      }
+
+       
+      .file-heading {
+        width: 100%;
+        display: table;
+        border-bottom: 1px solid #aaa;
+        margin: 4em 0 1.5em 0;
+      }
+      .file-heading h2 {
+        border: none;
+        display: table-cell;
+      }
+      .file-heading a {
+        text-align: right;
+        display: table-cell;
+      }
+
+       
+      .badge {
+        width: 1.6em;
+        height: 1.6em;
+        display: inline-block;
+
+        line-height: 1.6em;
+        text-align: center;
+        font-weight: bold;
+        font-size: 60%;
+
+        color: #89ba48;
+        background-color: #dff0c8;
+
+        margin: 0.5ex 1em 0.5ex -1em;
+        border: 1px solid #fbfbfb;
+        border-radius: 1ex;
+      }
+    </style>
+
+    
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+  </head>
+
+  <body>
+
+    <h1 id="title">Protocol Documentation</h1>
+
+    <h2>Table of Contents</h2>
+
+    <div id="toc-container">
+      <ul id="toc">
+        
+          
+          <li>
+            <a href="#user.proto">user.proto</a>
+            <ul>
+              
+              
+              
+              
+                <li>
+                  <a href="#auth.auth"><span class="badge">S</span>auth</a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#base.proto">base.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#auth.EmptyRequest"><span class="badge">M</span>EmptyRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.Pagination"><span class="badge">M</span>Pagination</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.Permission"><span class="badge">M</span>Permission</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.ResultResponse"><span class="badge">M</span>ResultResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.Role"><span class="badge">M</span>Role</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.User"><span class="badge">M</span>User</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.UserChangeProfileEvent"><span class="badge">M</span>UserChangeProfileEvent</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.UserInfo"><span class="badge">M</span>UserInfo</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.UserProfile"><span class="badge">M</span>UserProfile</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.UserProperty"><span class="badge">M</span>UserProperty</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#auth.Pagination.Direction"><span class="badge">E</span>Pagination.Direction</a>
+                </li>
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#user_admin.proto">user_admin.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#auth.CreateUserPropertyRequest"><span class="badge">M</span>CreateUserPropertyRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.CreateUserRequest"><span class="badge">M</span>CreateUserRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.CreateUserResponse"><span class="badge">M</span>CreateUserResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.DeleteUserRequest"><span class="badge">M</span>DeleteUserRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetUserByIdRequest"><span class="badge">M</span>GetUserByIdRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetUserByIdResponse"><span class="badge">M</span>GetUserByIdResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetUserPropertiesResponse"><span class="badge">M</span>GetUserPropertiesResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetUsersByIdsRequest"><span class="badge">M</span>GetUsersByIdsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetUsersByIdsResponse"><span class="badge">M</span>GetUsersByIdsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetUsersRequest"><span class="badge">M</span>GetUsersRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetUsersResponse"><span class="badge">M</span>GetUsersResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.SearchUsersRequest"><span class="badge">M</span>SearchUsersRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.SearchUsersResponse"><span class="badge">M</span>SearchUsersResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.UpdateUserRequest"><span class="badge">M</span>UpdateUserRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.UpdateUserResponse"><span class="badge">M</span>UpdateUserResponse</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#user_role.proto">user_role.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#auth.AuthorizeRequest"><span class="badge">M</span>AuthorizeRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.AuthorizeResponse"><span class="badge">M</span>AuthorizeResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.CreateRoleRequest"><span class="badge">M</span>CreateRoleRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.CreateRoleResponse"><span class="badge">M</span>CreateRoleResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.DeleteRoleRequest"><span class="badge">M</span>DeleteRoleRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetAllPermissionsResponse"><span class="badge">M</span>GetAllPermissionsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetPrivatePermissionsResponse"><span class="badge">M</span>GetPrivatePermissionsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetRoleByIdRequest"><span class="badge">M</span>GetRoleByIdRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetRoleByIdResponse"><span class="badge">M</span>GetRoleByIdResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetRolesRequest"><span class="badge">M</span>GetRolesRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetRolesResponse"><span class="badge">M</span>GetRolesResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetUsersbyRoleRequest"><span class="badge">M</span>GetUsersbyRoleRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetUsersbyRoleResponse"><span class="badge">M</span>GetUsersbyRoleResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.SetPublicPermissionsRequest"><span class="badge">M</span>SetPublicPermissionsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.SetRolesforPrivatePermissionsRequest"><span class="badge">M</span>SetRolesforPrivatePermissionsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.UpdateRoleRequest"><span class="badge">M</span>UpdateRoleRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.UpdateRoleResponse"><span class="badge">M</span>UpdateRoleResponse</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#user_member.proto">user_member.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#auth.ChangeEmailRequest"><span class="badge">M</span>ChangeEmailRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.ChangePasswordRequest"><span class="badge">M</span>ChangePasswordRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.ForgotPasswordRequest"><span class="badge">M</span>ForgotPasswordRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.GetProfileResponse"><span class="badge">M</span>GetProfileResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.LoginRequest"><span class="badge">M</span>LoginRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.LoginResponse"><span class="badge">M</span>LoginResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.LoginResponse.UserInfo"><span class="badge">M</span>LoginResponse.UserInfo</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.RegisterUserByFacebookRequest"><span class="badge">M</span>RegisterUserByFacebookRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.RegisterUserByFacebookResponse"><span class="badge">M</span>RegisterUserByFacebookResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.RegisterUserByGoogleRequest"><span class="badge">M</span>RegisterUserByGoogleRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.RegisterUserByGoogleResponse"><span class="badge">M</span>RegisterUserByGoogleResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.RegisterUserRequest"><span class="badge">M</span>RegisterUserRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.RegisterUserResponse"><span class="badge">M</span>RegisterUserResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.ResetPasswordRequest"><span class="badge">M</span>ResetPasswordRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.SendVerifyEmailRequest"><span class="badge">M</span>SendVerifyEmailRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.UpdateProfileRequest"><span class="badge">M</span>UpdateProfileRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.UpdateProfileResponse"><span class="badge">M</span>UpdateProfileResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#auth.VerifyEmailRequest"><span class="badge">M</span>VerifyEmailRequest</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#service_other.proto">service_other.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#auth.UpdatePermissionsFromOtherServiceRequest"><span class="badge">M</span>UpdatePermissionsFromOtherServiceRequest</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+        <li><a href="#scalar-value-types">Scalar Value Types</a></li>
+      </ul>
+    </div>
+
+    
+      
+      <div class="file-heading">
+        <h2 id="user.proto">user.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+
+      
+
+      
+
+      
+        <h3 id="auth.auth">auth</h3>
+        <p>Member</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>RegisterUser</td>
+                <td><a href="#auth.RegisterUserRequest">RegisterUserRequest</a></td>
+                <td><a href="#auth.RegisterUserResponse">RegisterUserResponse</a></td>
+                <td><p>Đăng ký tài khoản (cần có captcha chống spam)</p></td>
+              </tr>
+            
+              <tr>
+                <td>RegisterUserByFacebook</td>
+                <td><a href="#auth.RegisterUserByFacebookRequest">RegisterUserByFacebookRequest</a></td>
+                <td><a href="#auth.RegisterUserByFacebookResponse">RegisterUserByFacebookResponse</a></td>
+                <td><p>Đăng ký tài khoản qua Facebook</p></td>
+              </tr>
+            
+              <tr>
+                <td>RegisterUserByGoogle</td>
+                <td><a href="#auth.RegisterUserByGoogleRequest">RegisterUserByGoogleRequest</a></td>
+                <td><a href="#auth.RegisterUserByGoogleResponse">RegisterUserByGoogleResponse</a></td>
+                <td><p>Đăng ký tài khoản qua Google</p></td>
+              </tr>
+            
+              <tr>
+                <td>Login</td>
+                <td><a href="#auth.LoginRequest">LoginRequest</a></td>
+                <td><a href="#auth.LoginResponse">LoginResponse</a></td>
+                <td><p>Đăng nhập (có khóa tài khoản nếu đăng nhập sai nhiều lần)</p></td>
+              </tr>
+            
+              <tr>
+                <td>ForgotPassword</td>
+                <td><a href="#auth.ForgotPasswordRequest">ForgotPasswordRequest</a></td>
+                <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                <td><p>Quên mật khẩu (gửi email reset mật khẩu)</p></td>
+              </tr>
+            
+              <tr>
+                <td>ResetPassword</td>
+                <td><a href="#auth.ResetPasswordRequest">ResetPasswordRequest</a></td>
+                <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                <td><p>Reset mật khẩu (lấy đường dẫn trong email, kiểm tra tính hợp lệ của token trong đường dẫn)</p></td>
+              </tr>
+            
+              <tr>
+                <td>SendVerifyEmail</td>
+                <td><a href="#auth.SendVerifyEmailRequest">SendVerifyEmailRequest</a></td>
+                <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                <td><p>Gửi xác thực email (gửi email xác thực)</p></td>
+              </tr>
+            
+              <tr>
+                <td>VerifyEmail</td>
+                <td><a href="#auth.VerifyEmailRequest">VerifyEmailRequest</a></td>
+                <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                <td><p>Xác thực email (lấy đường dẫn trong email, kiểm tra tính hợp lệ của token trong đường dẫn)</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetProfile</td>
+                <td><a href="#auth.EmptyRequest">EmptyRequest</a></td>
+                <td><a href="#auth.GetProfileResponse">GetProfileResponse</a></td>
+                <td><p>Lấy thông tin cá nhân</p></td>
+              </tr>
+            
+              <tr>
+                <td>UpdateProfile</td>
+                <td><a href="#auth.UpdateProfileRequest">UpdateProfileRequest</a></td>
+                <td><a href="#auth.UpdateProfileResponse">UpdateProfileResponse</a></td>
+                <td><p>Cập nhật thông tin cá nhân</p></td>
+              </tr>
+            
+              <tr>
+                <td>ChangePassword</td>
+                <td><a href="#auth.ChangePasswordRequest">ChangePasswordRequest</a></td>
+                <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                <td><p>Đổi mật khẩu</p></td>
+              </tr>
+            
+              <tr>
+                <td>ChangeEmail</td>
+                <td><a href="#auth.ChangeEmailRequest">ChangeEmailRequest</a></td>
+                <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                <td><p>Đổi email (cần xác thực email mới, dùng lại hàm VerifyEmail)</p></td>
+              </tr>
+            
+              <tr>
+                <td>CreateUserProperty</td>
+                <td><a href="#auth.CreateUserPropertyRequest">CreateUserPropertyRequest</a></td>
+                <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                <td><p>Tạo thêm thuộc tính cho User (user info)</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetUserProperties</td>
+                <td><a href="#auth.EmptyRequest">EmptyRequest</a></td>
+                <td><a href="#auth.GetUserPropertiesResponse">GetUserPropertiesResponse</a></td>
+                <td><p>Lấy ra các thuộc tính cho User (user info)</p></td>
+              </tr>
+            
+              <tr>
+                <td>CreateUser</td>
+                <td><a href="#auth.CreateUserRequest">CreateUserRequest</a></td>
+                <td><a href="#auth.CreateUserResponse">CreateUserResponse</a></td>
+                <td><p>Tạo User</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetUsers</td>
+                <td><a href="#auth.GetUsersRequest">GetUsersRequest</a></td>
+                <td><a href="#auth.GetUsersResponse">GetUsersResponse</a></td>
+                <td><p>Lấy danh sách User (có phân trang, sorting)</p></td>
+              </tr>
+            
+              <tr>
+                <td>SearchUsers</td>
+                <td><a href="#auth.SearchUsersRequest">SearchUsersRequest</a></td>
+                <td><a href="#auth.SearchUsersResponse">SearchUsersResponse</a></td>
+                <td><p>Tìm kiếm User theo từ khóa</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetUserById</td>
+                <td><a href="#auth.GetUserByIdRequest">GetUserByIdRequest</a></td>
+                <td><a href="#auth.GetUserByIdResponse">GetUserByIdResponse</a></td>
+                <td><p>Lấy thông tin User theo Id</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetUsersByIds</td>
+                <td><a href="#auth.GetUsersByIdsRequest">GetUsersByIdsRequest</a></td>
+                <td><a href="#auth.GetUsersByIdsResponse">GetUsersByIdsResponse</a></td>
+                <td><p>Lấy danh sách User theo danh sách Id</p></td>
+              </tr>
+            
+              <tr>
+                <td>UpdateUser</td>
+                <td><a href="#auth.UpdateUserRequest">UpdateUserRequest</a></td>
+                <td><a href="#auth.UpdateUserResponse">UpdateUserResponse</a></td>
+                <td><p>Cập nhật thông tin User</p></td>
+              </tr>
+            
+              <tr>
+                <td>DeleteUser</td>
+                <td><a href="#auth.DeleteUserRequest">DeleteUserRequest</a></td>
+                <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                <td><p>Xóa User (không được xóa tài khoản Super Admin)</p></td>
+              </tr>
+            
+              <tr>
+                <td>CreateRole</td>
+                <td><a href="#auth.CreateRoleRequest">CreateRoleRequest</a></td>
+                <td><a href="#auth.CreateRoleResponse">CreateRoleResponse</a></td>
+                <td><p>Tạo Role</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetRoles</td>
+                <td><a href="#auth.GetRolesRequest">GetRolesRequest</a></td>
+                <td><a href="#auth.GetRolesResponse">GetRolesResponse</a></td>
+                <td><p>Lấy danh sách Role (có phân trang, sorting)</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetRoleById</td>
+                <td><a href="#auth.GetRoleByIdRequest">GetRoleByIdRequest</a></td>
+                <td><a href="#auth.GetRoleByIdResponse">GetRoleByIdResponse</a></td>
+                <td><p>Lấy thông tin Role theo Id</p></td>
+              </tr>
+            
+              <tr>
+                <td>UpdateRole</td>
+                <td><a href="#auth.UpdateRoleRequest">UpdateRoleRequest</a></td>
+                <td><a href="#auth.UpdateRoleResponse">UpdateRoleResponse</a></td>
+                <td><p>Cập nhật Role</p></td>
+              </tr>
+            
+              <tr>
+                <td>DeleteRole</td>
+                <td><a href="#auth.DeleteRoleRequest">DeleteRoleRequest</a></td>
+                <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                <td><p>Xóa Role</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetAllPermissions</td>
+                <td><a href="#auth.EmptyRequest">EmptyRequest</a></td>
+                <td><a href="#auth.GetAllPermissionsResponse">GetAllPermissionsResponse</a></td>
+                <td><p>Lấy ra danh sách tất cả các Service và Method</p></td>
+              </tr>
+            
+              <tr>
+                <td>SetPublicPermissions</td>
+                <td><a href="#auth.SetPublicPermissionsRequest">SetPublicPermissionsRequest</a></td>
+                <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                <td><p>Thiết lập chế độ Public cho các Service và Method</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetPrivatePermissions</td>
+                <td><a href="#auth.EmptyRequest">EmptyRequest</a></td>
+                <td><a href="#auth.GetPrivatePermissionsResponse">GetPrivatePermissionsResponse</a></td>
+                <td><p>Lấy ra danh sách các Service và Method ở chế độ Private</p></td>
+              </tr>
+            
+              <tr>
+                <td>SetRolesforPrivatePermissions</td>
+                <td><a href="#auth.SetRolesforPrivatePermissionsRequest">SetRolesforPrivatePermissionsRequest</a></td>
+                <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                <td><p>Thiết lập quyền cho các Service và Method ở chế độ Private</p></td>
+              </tr>
+            
+              <tr>
+                <td>GetUsersbyRole</td>
+                <td><a href="#auth.GetUsersbyRoleRequest">GetUsersbyRoleRequest</a></td>
+                <td><a href="#auth.GetUsersbyRoleResponse">GetUsersbyRoleResponse</a></td>
+                <td><p>Lọc User theo Role</p></td>
+              </tr>
+            
+              <tr>
+                <td>Authorize</td>
+                <td><a href="#auth.AuthorizeRequest">AuthorizeRequest</a></td>
+                <td><a href="#auth.AuthorizeResponse">AuthorizeResponse</a></td>
+                <td><p>Kiểm tra quyền truy cập vào một Method</p></td>
+              </tr>
+            
+              <tr>
+                <td>UpdatePermissionsFromOtherService</td>
+                <td><a href="#auth.UpdatePermissionsFromOtherServiceRequest">UpdatePermissionsFromOtherServiceRequest</a></td>
+                <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                <td><p>Khai báo các Service/Method từ Service-Video</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="base.proto">base.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="auth.EmptyRequest">EmptyRequest</h3>
+        <p>Request không có tham số</p>
+
+        
+
+        
+      
+        <h3 id="auth.Pagination">Pagination</h3>
+        <p>Thông tin phân trang</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>columns</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Danh sách các cột cần lấy </p></td>
+                </tr>
+              
+                <tr>
+                  <td>order_by_column</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Sắp xếp theo cột nào </p></td>
+                </tr>
+              
+                <tr>
+                  <td>order_by_direction</td>
+                  <td><a href="#auth.Pagination.Direction">Pagination.Direction</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>current_page</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Trang hiện tại </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.Permission">Permission</h3>
+        <p>Bảng lưu quyền truy cập của các Role với các Method</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>service</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tên của service (ví dụ &#39;blog&#39;) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>method</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Các phương thức của service </p></td>
+                </tr>
+              
+                <tr>
+                  <td>roles</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td>repeated</td>
+                  <td><p>Mảng các quyền hạn (Role) cho phép truy cập vào method (nếu null tức là public method) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>is_public</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Method có phải là public hay không </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.ResultResponse">ResultResponse</h3>
+        <p>Response với mã trạng thái</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>status</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Kết quả trả về </p></td>
+                </tr>
+              
+                <tr>
+                  <td>message</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Thông báo lỗi </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.Role">Role</h3>
+        <p>Bảng lưu danh sách Role</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Mã Role </p></td>
+                </tr>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tên của quyền hạn (ví dụ &#39;Author&#39;) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Mô tả quyền hạn </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.User">User</h3>
+        <p>Bảng lưu danh sách User</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Mã User (chuỗi ngẫu nhiên duy nhất) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>full_name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tên hiển thị </p></td>
+                </tr>
+              
+                <tr>
+                  <td>username</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tài khoản đăng nhập </p></td>
+                </tr>
+              
+                <tr>
+                  <td>email</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Địa chỉ email </p></td>
+                </tr>
+              
+                <tr>
+                  <td>password</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Mật khẩu phải có tối thiểu 6 ký tự </p></td>
+                </tr>
+              
+                <tr>
+                  <td>phone</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Số điện thoại </p></td>
+                </tr>
+              
+                <tr>
+                  <td>avatar</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Ảnh đại diện </p></td>
+                </tr>
+              
+                <tr>
+                  <td>roles</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td>repeated</td>
+                  <td><p>Mảng các quyền hạn (Role) của User (ví dụ [3, 5] tức là User có Role Id là 3 và 5).
+Một User có thể có nhiều Role, nếu Null tức là User không có quyền gì </p></td>
+                </tr>
+              
+                <tr>
+                  <td>email_confirmed</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Email đã xác nhận (kích hoạt) hay chưa
+True là đã xác nhận, False là chưa xác nhận, mặc định là False </p></td>
+                </tr>
+              
+                <tr>
+                  <td>verify_email_token</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Token để xác thực Email </p></td>
+                </tr>
+              
+                <tr>
+                  <td>verify_email_token_end</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Thời gian hiệu lực của Token xác thực email </p></td>
+                </tr>
+              
+                <tr>
+                  <td>reset_password_token</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Token để reset password </p></td>
+                </tr>
+              
+                <tr>
+                  <td>reset_password_token_end</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Thời gian hiệu lực của Token reset password </p></td>
+                </tr>
+              
+                <tr>
+                  <td>access_failed_count</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Số lần đăng nhập sai, mặc định là 0 </p></td>
+                </tr>
+              
+                <tr>
+                  <td>lockout_end</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Thời gian khóa đăng nhập, mặc định là Null tức là không khóa
+Sau X số lần đăng nhập sai có thể khóa User đăng nhập trong khoảng thời gian Y </p></td>
+                </tr>
+              
+                <tr>
+                  <td>created_at</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Ngày tài khoản được tạo </p></td>
+                </tr>
+              
+                <tr>
+                  <td>created_by</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id người tạo tài khoản, Null là người dùng tự đăng ký tài khoản </p></td>
+                </tr>
+              
+                <tr>
+                  <td>modified_at</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Ngày gần nhất tài khoản cập nhật thông tin </p></td>
+                </tr>
+              
+                <tr>
+                  <td>modified_by</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Người cập nhật thông tin tài khoản gần nhất </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user_status</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Trạng thái của User
+True là active, False là unactive, mặc định là True </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user_info</td>
+                  <td><a href="#auth.UserInfo">UserInfo</a></td>
+                  <td>repeated</td>
+                  <td><p>Thông tin thêm về User lưu dưới dạng JSON </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.UserChangeProfileEvent">UserChangeProfileEvent</h3>
+        <p>Sự kiện User thay đổi thông tin cá nhân</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Mã User </p></td>
+                </tr>
+              
+                <tr>
+                  <td>full_name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tên hiển thị </p></td>
+                </tr>
+              
+                <tr>
+                  <td>avatar</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Ảnh đại diện </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.UserInfo">UserInfo</h3>
+        <p>Mô tả chi tiết trường user_info</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user_property_id</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Mã User Property </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Giá trị của Property </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.UserProfile">UserProfile</h3>
+        <p>Thông tin hiển thị cho user thường (trang thông tin cá nhân)</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>full_name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tên User </p></td>
+                </tr>
+              
+                <tr>
+                  <td>email</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Địa chỉ email, dùng luôn làm tài khoản đăng nhập </p></td>
+                </tr>
+              
+                <tr>
+                  <td>email_confirmed</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Email đã xác nhận (kích hoạt) hay chưa
+True là đã xác nhận, False là chưa xác nhận, mặc định là False </p></td>
+                </tr>
+              
+                <tr>
+                  <td>avatar</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Ảnh đại diện </p></td>
+                </tr>
+              
+                <tr>
+                  <td>phone</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Số điện thoại </p></td>
+                </tr>
+              
+                <tr>
+                  <td>created_at</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Ngày tài khoản được tạo </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user_info</td>
+                  <td><a href="#auth.UserInfo">UserInfo</a></td>
+                  <td>repeated</td>
+                  <td><p>Thông tin thêm về User ví dụ Tiểu sử, học vấn, ... </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.UserProperty">UserProperty</h3>
+        <p>Bảng lưu các thuộc tính thêm của User</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Mã User Property </p></td>
+                </tr>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tên Property </p></td>
+                </tr>
+              
+                <tr>
+                  <td>type</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Kiểu dữ liệu của Property. 
+Nhận một trong các giá trị: Number, string, Datetime </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+
+      
+        <h3 id="auth.Pagination.Direction">Pagination.Direction</h3>
+        <p>Sắp xếp theo chiều nào</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>ASC</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>DESC</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="user_admin.proto">user_admin.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="auth.CreateUserPropertyRequest">CreateUserPropertyRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user_property</td>
+                  <td><a href="#auth.UserProperty">UserProperty</a></td>
+                  <td></td>
+                  <td><p>Tạo thêm thuộc tính cho User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.CreateUserRequest">CreateUserRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user</td>
+                  <td><a href="#auth.User">User</a></td>
+                  <td></td>
+                  <td><p>Tạo đối tượng User - Dữ liệu truyền vào: full_name, username, email, password, phone, avatar, roles </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.CreateUserResponse">CreateUserResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>status</td>
+                  <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                  <td></td>
+                  <td><p>Kết quả tạo User </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user</td>
+                  <td><a href="#auth.User">User</a></td>
+                  <td></td>
+                  <td><p>Trả về đối tượng User nếu tạo thành công </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.DeleteUserRequest">DeleteUserRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id của User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetUserByIdRequest">GetUserByIdRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id của User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetUserByIdResponse">GetUserByIdResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user</td>
+                  <td><a href="#auth.User">User</a></td>
+                  <td></td>
+                  <td><p>Trả về đối tượng User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetUserPropertiesResponse">GetUserPropertiesResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user_properties</td>
+                  <td><a href="#auth.UserProperty">UserProperty</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách thuộc tính User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetUsersByIdsRequest">GetUsersByIdsRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>ids</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Danh sách Id của các User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetUsersByIdsResponse">GetUsersByIdsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>users</td>
+                  <td><a href="#auth.User">User</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách User tương ứng </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetUsersRequest">GetUsersRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#auth.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Dữ liệu phân trang và sorting </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetUsersResponse">GetUsersResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>users</td>
+                  <td><a href="#auth.User">User</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách User tương ứng </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.SearchUsersRequest">SearchUsersRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>keyword</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Từ khóa tìm kiếm </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#auth.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Dữ liệu phân trang và sorting </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.SearchUsersResponse">SearchUsersResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>users</td>
+                  <td><a href="#auth.User">User</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách User tương ứng </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.UpdateUserRequest">UpdateUserRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user</td>
+                  <td><a href="#auth.User">User</a></td>
+                  <td></td>
+                  <td><p>Cập nhật User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.UpdateUserResponse">UpdateUserResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>status</td>
+                  <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                  <td></td>
+                  <td><p>Kết quả cập nhật </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user</td>
+                  <td><a href="#auth.User">User</a></td>
+                  <td></td>
+                  <td><p>Trả về đối tượng User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="user_role.proto">user_role.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="auth.AuthorizeRequest">AuthorizeRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>service</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Service </p></td>
+                </tr>
+              
+                <tr>
+                  <td>method</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Method </p></td>
+                </tr>
+              
+                <tr>
+                  <td>access_token</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Token </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.AuthorizeResponse">AuthorizeResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>is_authorized</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Trả về trạng thái sau khi xác thực </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Id User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.CreateRoleRequest">CreateRoleRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>role</td>
+                  <td><a href="#auth.Role">Role</a></td>
+                  <td></td>
+                  <td><p>Tạo đối tượng Role </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.CreateRoleResponse">CreateRoleResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>role</td>
+                  <td><a href="#auth.Role">Role</a></td>
+                  <td></td>
+                  <td><p>Trả về Role vừa tạo </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.DeleteRoleRequest">DeleteRoleRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Id của Role </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetAllPermissionsResponse">GetAllPermissionsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>permissions</td>
+                  <td><a href="#auth.Permission">Permission</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về tất cả các quyền hiện có </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetPrivatePermissionsResponse">GetPrivatePermissionsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>permissions</td>
+                  <td><a href="#auth.Permission">Permission</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách quyền Private </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetRoleByIdRequest">GetRoleByIdRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Id của Role </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetRoleByIdResponse">GetRoleByIdResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>role</td>
+                  <td><a href="#auth.Role">Role</a></td>
+                  <td></td>
+                  <td><p>Trả về đối tượng Role và các method role được truy cập </p></td>
+                </tr>
+              
+                <tr>
+                  <td>permissions</td>
+                  <td><a href="#auth.Permission">Permission</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetRolesRequest">GetRolesRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#auth.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Dữ liệu phân trang và sorting </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetRolesResponse">GetRolesResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>roles</td>
+                  <td><a href="#auth.Role">Role</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách Role tương ứng </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetUsersbyRoleRequest">GetUsersbyRoleRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>role</td>
+                  <td><a href="#auth.Role">Role</a></td>
+                  <td></td>
+                  <td><p>Lấy danh sách User của Role </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#auth.Pagination">Pagination</a></td>
+                  <td></td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetUsersbyRoleResponse">GetUsersbyRoleResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>users</td>
+                  <td><a href="#auth.User">User</a></td>
+                  <td>repeated</td>
+                  <td><p>Trả về danh sách User thuộc Role </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.SetPublicPermissionsRequest">SetPublicPermissionsRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>permissions</td>
+                  <td><a href="#auth.Permission">Permission</a></td>
+                  <td>repeated</td>
+                  <td><p>Danh sách quyền muốn set Public/Private </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.SetRolesforPrivatePermissionsRequest">SetRolesforPrivatePermissionsRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>permissions</td>
+                  <td><a href="#auth.Permission">Permission</a></td>
+                  <td>repeated</td>
+                  <td><p>Danh sách quyền muốn gán cho Role </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.UpdateRoleRequest">UpdateRoleRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>role</td>
+                  <td><a href="#auth.Role">Role</a></td>
+                  <td></td>
+                  <td><p>Cập nhật Role </p></td>
+                </tr>
+              
+                <tr>
+                  <td>permissions</td>
+                  <td><a href="#auth.Permission">Permission</a></td>
+                  <td>repeated</td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.UpdateRoleResponse">UpdateRoleResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>role</td>
+                  <td><a href="#auth.Role">Role</a></td>
+                  <td></td>
+                  <td><p>Trả về Role vừa cập nhật </p></td>
+                </tr>
+              
+                <tr>
+                  <td>permissions</td>
+                  <td><a href="#auth.Permission">Permission</a></td>
+                  <td>repeated</td>
+                  <td><p>Phân trang </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="user_member.proto">user_member.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="auth.ChangeEmailRequest">ChangeEmailRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>old_password</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Mật khẩu cũ </p></td>
+                </tr>
+              
+                <tr>
+                  <td>new_email</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Email mới </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.ChangePasswordRequest">ChangePasswordRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>old_password</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Mật khẩu cũ </p></td>
+                </tr>
+              
+                <tr>
+                  <td>new_password</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Mật khẩu mới </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.ForgotPasswordRequest">ForgotPasswordRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>email</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Email nhận link lấy mật khẩu </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.GetProfileResponse">GetProfileResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user_profile</td>
+                  <td><a href="#auth.UserProfile">UserProfile</a></td>
+                  <td></td>
+                  <td><p>Trả về profile của User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.LoginRequest">LoginRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>username</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tài khoản </p></td>
+                </tr>
+              
+                <tr>
+                  <td>password</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Mật khẩu </p></td>
+                </tr>
+              
+                <tr>
+                  <td>remember</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Ghi nhớ đăng nhập </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.LoginResponse">LoginResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>result</td>
+                  <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                  <td></td>
+                  <td><p>Kết quả đăng nhập </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user_info</td>
+                  <td><a href="#auth.LoginResponse.UserInfo">LoginResponse.UserInfo</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>access_token</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>JWT token dùng để chứng thực khi đăng nhập thành công </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.LoginResponse.UserInfo">LoginResponse.UserInfo</h3>
+        <p>Thông tin User đăng nhập thành công</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>full_name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Họ tên người đăng nhập </p></td>
+                </tr>
+              
+                <tr>
+                  <td>email</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Email người đăng nhập </p></td>
+                </tr>
+              
+                <tr>
+                  <td>avatar</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Avatar người đăng nhập </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.RegisterUserByFacebookRequest">RegisterUserByFacebookRequest</h3>
+        <p>todo: Dựa vào thông tin lấy từ Facebook</p>
+
+        
+
+        
+      
+        <h3 id="auth.RegisterUserByFacebookResponse">RegisterUserByFacebookResponse</h3>
+        <p>todo: Dựa vào thông tin lấy từ Facebook</p>
+
+        
+
+        
+      
+        <h3 id="auth.RegisterUserByGoogleRequest">RegisterUserByGoogleRequest</h3>
+        <p>todo: Dựa vào thông tin lấy từ Google</p>
+
+        
+
+        
+      
+        <h3 id="auth.RegisterUserByGoogleResponse">RegisterUserByGoogleResponse</h3>
+        <p>todo: Dựa vào thông tin lấy từ Google</p>
+
+        
+
+        
+      
+        <h3 id="auth.RegisterUserRequest">RegisterUserRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user</td>
+                  <td><a href="#auth.User">User</a></td>
+                  <td></td>
+                  <td><p>Đăng ký User - Dữ liệu truyền vào: username, email, phone, full_name, password </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.RegisterUserResponse">RegisterUserResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>status</td>
+                  <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                  <td></td>
+                  <td><p>Kết quả đăng ký </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user</td>
+                  <td><a href="#auth.User">User</a></td>
+                  <td></td>
+                  <td><p>Trả về User vừa tạo </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.ResetPasswordRequest">ResetPasswordRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>token</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Token xác nhận tạo mật khẩu mới </p></td>
+                </tr>
+              
+                <tr>
+                  <td>password</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Mật khẩu mới </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.SendVerifyEmailRequest">SendVerifyEmailRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>email</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Email cần xác thực </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.UpdateProfileRequest">UpdateProfileRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user_profile</td>
+                  <td><a href="#auth.UserProfile">UserProfile</a></td>
+                  <td></td>
+                  <td><p>Cập nhật profile của User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.UpdateProfileResponse">UpdateProfileResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>status</td>
+                  <td><a href="#auth.ResultResponse">ResultResponse</a></td>
+                  <td></td>
+                  <td><p>Kết quả cập nhật </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user</td>
+                  <td><a href="#auth.User">User</a></td>
+                  <td></td>
+                  <td><p>Trả về đối tượng User </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="auth.VerifyEmailRequest">VerifyEmailRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>token</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Token xác thực email </p></td>
+                </tr>
+              
+                <tr>
+                  <td>email</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Email cần xác thực </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="service_other.proto">service_other.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="auth.UpdatePermissionsFromOtherServiceRequest">UpdatePermissionsFromOtherServiceRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>permissions</td>
+                  <td><a href="#auth.Permission">Permission</a></td>
+                  <td>repeated</td>
+                  <td><p>Danh sách quyền cập nhật từ service khác </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+
+      
+
+      
+
+      
+    
+
+    <h2 id="scalar-value-types">Scalar Value Types</h2>
+    <table class="scalar-value-types-table">
+      <thead>
+        <tr><td>.proto Type</td><td>Notes</td><td>C++ Type</td><td>Java Type</td><td>Python Type</td></tr>
+      </thead>
+      <tbody>
+        
+          <tr id="double">
+            <td>double</td>
+            <td></td>
+            <td>double</td>
+            <td>double</td>
+            <td>float</td>
+          </tr>
+        
+          <tr id="float">
+            <td>float</td>
+            <td></td>
+            <td>float</td>
+            <td>float</td>
+            <td>float</td>
+          </tr>
+        
+          <tr id="int32">
+            <td>int32</td>
+            <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+          </tr>
+        
+          <tr id="int64">
+            <td>int64</td>
+            <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+          </tr>
+        
+          <tr id="uint32">
+            <td>uint32</td>
+            <td>Uses variable-length encoding.</td>
+            <td>uint32</td>
+            <td>int</td>
+            <td>int/long</td>
+          </tr>
+        
+          <tr id="uint64">
+            <td>uint64</td>
+            <td>Uses variable-length encoding.</td>
+            <td>uint64</td>
+            <td>long</td>
+            <td>int/long</td>
+          </tr>
+        
+          <tr id="sint32">
+            <td>sint32</td>
+            <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+          </tr>
+        
+          <tr id="sint64">
+            <td>sint64</td>
+            <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+          </tr>
+        
+          <tr id="fixed32">
+            <td>fixed32</td>
+            <td>Always four bytes. More efficient than uint32 if values are often greater than 2^28.</td>
+            <td>uint32</td>
+            <td>int</td>
+            <td>int</td>
+          </tr>
+        
+          <tr id="fixed64">
+            <td>fixed64</td>
+            <td>Always eight bytes. More efficient than uint64 if values are often greater than 2^56.</td>
+            <td>uint64</td>
+            <td>long</td>
+            <td>int/long</td>
+          </tr>
+        
+          <tr id="sfixed32">
+            <td>sfixed32</td>
+            <td>Always four bytes.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+          </tr>
+        
+          <tr id="sfixed64">
+            <td>sfixed64</td>
+            <td>Always eight bytes.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+          </tr>
+        
+          <tr id="bool">
+            <td>bool</td>
+            <td></td>
+            <td>bool</td>
+            <td>boolean</td>
+            <td>boolean</td>
+          </tr>
+        
+          <tr id="string">
+            <td>string</td>
+            <td>A string must always contain UTF-8 encoded or 7-bit ASCII text.</td>
+            <td>string</td>
+            <td>String</td>
+            <td>str/unicode</td>
+          </tr>
+        
+          <tr id="bytes">
+            <td>bytes</td>
+            <td>May contain any arbitrary sequence of bytes.</td>
+            <td>string</td>
+            <td>ByteString</td>
+            <td>str</td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </body>
+</html>
+

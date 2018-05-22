@@ -1,0 +1,127 @@
+syntax = "proto3";
+
+package auth;
+
+import "base.proto";
+
+message RegisterUserRequest {
+  // Đăng ký User - Dữ liệu truyền vào: username, email, phone, full_name, password
+  User user = 1;
+}
+
+
+message RegisterUserResponse {
+  // Kết quả đăng ký
+  ResultResponse status = 1;
+
+  // Trả về User vừa tạo
+  User user = 2;
+}
+
+message RegisterUserByFacebookRequest {
+  //todo: Dựa vào thông tin lấy từ Facebook
+}
+
+message RegisterUserByFacebookResponse {
+  //todo: Dựa vào thông tin lấy từ Facebook
+}
+
+message RegisterUserByGoogleRequest {
+  //todo: Dựa vào thông tin lấy từ Google
+}
+
+message RegisterUserByGoogleResponse {
+  //todo: Dựa vào thông tin lấy từ Google
+}
+
+message LoginRequest {
+  // Tài khoản
+  string username = 1;
+
+  // Mật khẩu
+  string password = 2;
+
+  // Ghi nhớ đăng nhập
+  bool remember = 3;
+}
+
+message LoginResponse {
+  // Kết quả đăng nhập
+  ResultResponse result = 1;
+
+  // Thông tin User đăng nhập thành công
+  message UserInfo {
+    // Họ tên người đăng nhập
+    string full_name = 1;
+
+    // Email người đăng nhập
+    string email = 2;
+
+    // Avatar người đăng nhập
+    string avatar = 3;
+  }
+  UserInfo user_info = 2;
+
+  // JWT token dùng để chứng thực khi đăng nhập thành công
+  string access_token = 3;
+}
+
+message ForgotPasswordRequest {
+  // Email nhận link lấy mật khẩu
+  string email = 1;
+}
+
+message ResetPasswordRequest {
+  // Token xác nhận tạo mật khẩu mới
+  string token = 1;
+
+  // Mật khẩu mới
+  string password = 2;
+}
+
+message SendVerifyEmailRequest {
+  // Email cần xác thực
+  string email = 1;
+}
+
+message VerifyEmailRequest {
+  // Token xác thực email
+  string token = 1;
+
+  // Email cần xác thực
+  string email = 2;
+}
+
+message GetProfileResponse {
+  // Trả về profile của User
+  UserProfile user_profile = 1;
+}
+
+message UpdateProfileRequest {
+  // Cập nhật profile của User
+  UserProfile user_profile = 1;
+}
+
+message UpdateProfileResponse {
+  // Kết quả cập nhật
+  ResultResponse status = 1;
+
+  // Trả về đối tượng User
+  User user = 2;
+}
+
+message ChangePasswordRequest {
+  // Mật khẩu cũ
+  string old_password = 1;
+
+  // Mật khẩu mới
+  string new_password = 2;
+}
+
+message ChangeEmailRequest {
+  // Mật khẩu cũ
+  string old_password = 1;
+
+  // Email mới
+  string new_email = 2;
+}

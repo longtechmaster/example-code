@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package blog;
+
+import "base.proto";
+
+message CreateTagRequest {
+    // Tạo tag
+    Tag tag = 1;
+}
+
+message CreateTagResponse {
+    // Trả về tag vừa tạo
+    Tag tag = 1;
+}
+
+message GetTagsRequest {
+    // Phân trang
+    Pagination data = 1;
+}
+
+message GetTagsResponse {
+    // Trả về danh sách tag
+    repeated Tag tag = 1;
+    // Số lượng post có gắn tag
+    int32 number_of_post = 2;
+    // Số lượng user theo dõi tag
+    int32 number_of_follower = 3;
+    // Phân trang
+    Pagination data = 4;
+}
+
+message GetPopularTagsRequest {
+    // Lấy danh sách Tag thông dụng
+    int32 number_of_tag = 1;
+}
+
+message GetPopularTagsResponse {
+    // Trả về danh sách tag thông dụng
+    repeated Tag tag = 1;
+    // Số lượng post có gắn tag
+    int32 number_of_post = 2;
+    // Số lượng user theo dõi tag
+    int32 number_of_follower = 3;
+    // Phân trang
+    Pagination data = 4;
+}
+
+message GetPublishedPostsByTagRequest {
+    // Id của tag   
+    string tag_id = 1;
+    // Danh sách bài viết chế độ publish có gắn tag
+    repeated Post post = 2;
+    // Phân trang
+    Pagination data = 3;
+}
+
+message SearchTagsRequest {
+    // Từ khóa tìm kiếm
+    string keyword = 1;
+    // Phân trang
+    Pagination data = 2;
+} 
+
+message SearchTagsResponse {
+    // Trả về danh sách tag tìm kiếm
+    repeated Tag tag = 1;
+}
+
+message FollowTagRequest {
+    // Id tag
+    string tag_id = 1;
+}
+
+message UnFollowTagRequest {
+    // Id tag
+    string tag_id = 1;
+}
+
+message GetFollowingTagsResponse {
+    // Trả về danh sách tag đang theo dõi
+    repeated Tag tag = 1;
+}

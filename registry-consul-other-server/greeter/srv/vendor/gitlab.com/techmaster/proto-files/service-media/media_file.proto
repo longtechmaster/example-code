@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package media;
+
+import "base.proto";
+
+message UploadFileRequest {
+  // Link image
+  File File = 1;
+}
+
+message UploadFileResponse {
+  bool status = 1 ;
+  File File = 2 ;
+}
+
+message GetFilesByIdRequest{
+  int32 file_id = 1;
+}
+
+message GetFileByIdResponse{
+  File File = 1;
+}
+
+

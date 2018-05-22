@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package blog;
+
+import "base.proto";
+
+message CreateCategoryRequest {
+  // Tạo Danh mục - Dữ liệu truyền vào: title, slug, icon, description
+  Category category = 1;
+}
+
+message CreateCategoryResponse {
+  // Trả về danh mục vừa tạo
+  Category category = 1;
+}
+
+message GetCategoriesRequest {
+  // Dữ liệu phân trang và sorting
+  Pagination data = 1;
+}
+
+message GetCategoriesResponse {
+  // Trả về danh sách danh mục
+  repeated Category category = 1;
+}
+
+message GetCategoryByIdRequest {
+  // Id của danh mục
+  int32 id = 1;
+}
+
+message GetCategoryByIdResponse {
+ // Trả về danh mục 
+ Category category = 1;
+}
+
+message UpdateCategoryRequest {
+  // Cập nhật danh mục
+  Category category = 1;
+}
+
+message UpdateCategoryResponse {
+ // Trả về danh mục vừa cập nhật
+ Category category = 1;
+}
+
+message DeleteCategoryRequest {
+  // Id danh mục
+  int32 id = 1;
+}
+
+message GetPublishedPostsByCategoryRequest {
+  // Id của danh mục
+  int32 id = 1;
+  // Phân trang
+  Pagination data = 2;
+}
+
+message GetPublishedPostsByCategoryResponse {
+  // Trả về danh sách bài viết Public thuộc danh mục
+  repeated Post post = 1;
+}

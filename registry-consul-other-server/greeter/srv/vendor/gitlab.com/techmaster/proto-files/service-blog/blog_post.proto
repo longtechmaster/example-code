@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package blog;
+
+import "base.proto";
+//import "base.proto";
+
+message CreatePostRequest {
+    // Tạo bài viết - Dữ liệu truyền vào: 
+    Post post = 1;
+}
+
+message CreatePostResponse {
+    // Trả về bài viết vừa tạo
+    Post post = 1;
+}
+
+message GetPostByIdRequest {
+    // Id bài viết
+    string post_id = 1;
+}
+
+message GetPostByIdResponse {
+    // Trả về bài viết 
+    Post post = 1;
+}
+
+message GetPostsRequest {
+    // Phân trang
+    Pagination data = 1;
+}
+
+message GetOwnPostsRequest {
+    // Phân trang
+    Pagination data = 2;
+}
+
+message GetPublishedPostsResquest {
+    // Phân trang
+    Pagination data = 1;
+}
+
+message GetRelatedPostsRequest {
+    // Id danh sách bài viết muốn lấy danh sách liên quan
+    string post_id = 1;
+    // Phân trang
+    Pagination data = 2;
+}
+
+message ListPostsResponse {
+    // Trả về danh sách bài viết
+    repeated Post post = 1;
+}
+
+message UpdatePostRequest {
+    // Cập nhật bài viết
+    Post post = 1;
+}
+
+message UpdatePostResponse {
+    // Trả về bài viết vừa cập nhật
+    Post post = 1;
+}
+
+message DeletePostRequest {
+    // Id bài viết muốn xóa
+    string post_id = 1;
+}
+
+message PublishPostRequest {
+    // Id bài viết muốn thay đổi trạng thái
+    string post_id = 1;
+    // Trạng thái muốn thay đổi
+    int32 status = 2;
+}
+
+message SearchPostsRequest {
+    // Từ khóa tìm kiếm
+    string keyword = 1;
+    // Phân trang
+    Pagination data = 2;
+}
+
+message VoteUpPostRequest {
+    // Vote Up bài viết
+    string post_id = 1;
+}
+
+message VoteDownPostRequest {
+    // Vote down bài viết
+    string post_id = 1;
+}
+
+message BookmarkRequest {
+    // Bookmark bài viết
+    string post_id = 1;
+}

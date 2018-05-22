@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package auth;
+
+import "base.proto";
+
+message UpdatePermissionsFromOtherServiceRequest {
+  // Danh sách quyền cập nhật từ service khác
+  repeated Permission permissions = 1;
+}

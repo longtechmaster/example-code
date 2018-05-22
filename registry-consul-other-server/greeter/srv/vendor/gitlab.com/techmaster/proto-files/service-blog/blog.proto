@@ -1,0 +1,186 @@
+syntax = "proto3";
+
+package blog;
+
+import "base.proto";
+import "blog_post.proto";
+import "blog_category.proto";
+import "blog_tag.proto";
+import "blog_author.proto";
+import "blog_comment.proto";
+
+service blog {
+  /* Post */
+
+  // Tạo bài viết
+  rpc CreatePost(CreatePostRequest) returns (CreatePostResponse);
+
+  // Tạo bài viết của bản thân
+  rpc CreateOwnPost(CreatePostRequest) returns (CreatePostResponse);
+
+  // Lấy thông tin bài viết theo Id
+  rpc GetPostById(GetPostByIdRequest) returns (GetPostByIdResponse);
+
+  // Lấy thông tin bài viết do bản thân tạo ra theo Id
+  rpc GetOwnPostById(GetPostByIdRequest) returns (GetPostByIdResponse);
+
+  // Lấy danh sách bài viết
+  rpc GetPosts(GetPostsRequest) returns (ListPostsResponse);
+
+  // Lấy danh sách bài viết của bản thân
+  rpc GetOwnPosts(GetOwnPostsRequest) returns (ListPostsResponse);
+
+  // Lấy danh sách các bài viết đã xuất bản
+  rpc GetPublishedPosts(GetPublishedPostsResquest) returns (ListPostsResponse);
+
+  // Lấy danh sách bài viết liên quan
+  rpc GetRelatedPosts(GetRelatedPostsRequest) returns (ListPostsResponse);
+
+  // Cập nhật bài viết
+  rpc UpdatePost(UpdatePostRequest) returns (UpdatePostResponse);
+
+  // Cập nhật bài viết của bản thân
+  rpc UpdateOwnPost(UpdatePostRequest) returns (UpdatePostResponse);
+
+  // Xóa bài viết
+  rpc DeletePost(DeletePostRequest) returns (ResultResponse);
+
+  // Xóa bài viết của bản thân
+  rpc DeleteOwnPost(DeletePostRequest) returns (ResultResponse);
+
+  // Xuất bản bài viết
+  rpc PublishPost(PublishPostRequest) returns (ResultResponse);
+
+  // Xuất bản bài viết của bản thân
+  rpc PublishOwnPost(PublishPostRequest) returns (ResultResponse);
+
+  // Tìm kiếm bài viết
+  rpc SearchPosts(SearchPostsRequest) returns (ListPostsResponse);
+
+  // Vote Up bài viết
+  rpc VoteUpPost(VoteUpPostRequest) returns (ResultResponse);
+
+  // Vote Down bài viết 
+  rpc VoteDownPost(VoteDownPostRequest) returns (ResultResponse);
+
+  // Bookmark bài viết
+  rpc Bookmark(BookmarkRequest) returns (ResultResponse);
+
+  // Lấy danh sách bài viết đã bookmark
+  rpc GetBookmarkPosts(EmptyRequest) returns (ListPostsResponse);
+  
+  /* ------------------------------------------------------- */
+
+
+  /* Category */
+
+  // Tạo danh mục
+  rpc CreateCategory(CreateCategoryRequest) returns (CreateCategoryResponse);
+
+  // Lấy danh sách danh mục
+  rpc GetCategories(GetCategoriesRequest) returns (GetCategoriesResponse);
+
+  // Lấy thông tin danh mục theo Id
+  rpc GetCategoryById(GetCategoryByIdRequest) returns (GetCategoryByIdResponse);
+
+  // Cập nhật danh mục
+  rpc UpdateCategory(UpdateCategoryRequest) returns (UpdateCategoryResponse);
+
+  // Xóa danh mục
+  rpc DeleteCategory(DeleteCategoryRequest) returns (ResultResponse);
+
+  // Lấy danh sách bài viết đã xuất bản theo danh mục
+  rpc GetPublishedPostsByCategory(GetPublishedPostsByCategoryRequest) returns (GetPublishedPostsByCategoryResponse);
+
+  /* ------------------------------------------------------- */
+
+
+  /* Tag */
+
+  // Tạo Tag
+  rpc CreateTag(CreateTagRequest) returns (CreateTagResponse);
+
+  // Lấy danh sách Tag
+  rpc GetTags(GetTagsRequest) returns (GetTagsResponse);
+
+  // Lấy danh sách Tag thông dụng (có nhiều bài viết)
+  rpc GetPopularTags(GetPopularTagsRequest) returns (GetPopularTagsResponse);
+
+  // Lấy danh sách bài viết đã xuất bản theo Tag
+  rpc GetPublishedPostsByTag(GetPublishedPostsByTagRequest) returns (ListPostsResponse);
+
+  // Tìm kiếm Tag theo keyword
+  rpc SearchTags(SearchTagsRequest) returns (SearchTagsResponse);
+
+  // Theo dõi Tag
+  rpc FollowTag(FollowTagRequest) returns (ResultResponse);
+
+  // Lấy danh sách Tag mà người dùng đang theo dõi
+  rpc GetFollowingTags(EmptyRequest) returns (GetFollowingTagsResponse);
+
+  /* ------------------------------------------------------- */
+
+
+  /* Author */
+
+  // Lấy thông tin blog cá nhân
+  rpc GetPersonalBlogInfo(EmptyRequest) returns (GetPersonalBlogInfoResponse);
+
+  // Lấy thông tin tác giả theo Id
+  rpc GetAuthorById(GetAuthorByIdRequest) returns (GetAuthorByIdResponse);
+
+  // Lấy danh sách top tác giả
+  rpc GetHotAuthors(EmptyRequest) returns (GetHotAuthorsResponse);
+
+  // Lấy danh sách bài viết đã xuất bản theo tác giả
+  rpc GetPublishedPostsByAuthor(GetPublishedPostsByAuthorRequest) returns (ListPostsResponse);
+
+  // Lấy danh sách bài viết đã xuất bản có cùng tác giả
+  rpc GetSameAuthorPublishedPosts(GetSameAuthorPublishedPostsRequest) returns (ListPostsResponse);
+
+  // Theo dõi tác giả
+  rpc FollowAuthor(FollowAuthorRequest) returns (ResultResponse);
+
+  // Lấy danh sách những người đang theo dõi cá nhân, và những người cá nhân đang theo dõi
+  rpc GetPersonalFollow(EmptyRequest) returns (GetPersonalFollowResponse);
+
+    // Lấy danh sách những người đang theo dõi tác giả, và những người tác giả đang theo dõi
+  rpc GetAuthorFollow(GetAuthorFollowRequest) returns (GetAuthorFollowResponse);
+
+  /* ------------------------------------------------------- */
+
+
+  /* Comment */
+
+  // Bình luận bài viết
+  rpc CreateComment(CreateCommentRequest) returns (ResultResponse);
+
+  // Lấy danh sách bình luận của bài viết (sắp xếp từ mới đến cũ)
+  rpc GetCommentsOfPost(GetCommentsOfPostRequest) returns (GetCommentsOfPostResponse);
+
+  // Lấy danh sách trả lời của một bình luận (sắp xếp từ cũ đến mới)
+  rpc GetReplyComments(GetReplyCommentsRequest) returns (GetReplyCommentsResponse);
+
+  // Cập nhật bình luận
+  rpc UpdateComment(UpdateCommentRequest) returns (ResultResponse);
+
+  // Cập nhật bình luận của bản thân
+  rpc UpdateOwnComment(UpdateCommentRequest) returns (ResultResponse);
+  
+  // Xóa bình luận
+  rpc DeleteComment(DeleteCommentRequest) returns (ResultResponse);
+
+  // Xóa bình luận bài viết
+  rpc DeleteCommentsOfPost(DeleteCommentsOfPostRequest) returns (ResultResponse);
+
+  // Xóa bình luận bài viết của bản thân
+  rpc DeleteCommentsOfOwnPost(DeleteCommentsOfOwnPostRequest) returns (ResultResponse);
+
+  // Xóa bình luận của bản thân
+  rpc DeleteOwnComment(DeleteCommentRequest) returns (ResultResponse);
+  
+  // Vote bình luận
+  rpc VoteComment(VoteCommentRequest) returns (ResultResponse);
+
+  /* ------------------------------------------------------- */
+}

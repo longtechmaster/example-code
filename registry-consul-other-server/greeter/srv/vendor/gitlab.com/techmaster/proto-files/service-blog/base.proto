@@ -1,0 +1,250 @@
+syntax = "proto3";
+
+package blog;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
+
+
+message EmptyRequest {}
+
+/* Response với Id trạng thái */
+message ResultResponse {
+  // Kết quả trả về
+  bool status = 1;
+
+  // Thông báo lỗi
+  string message = 2;
+}
+
+// Thông tin phân trang
+message Pagination {
+  // Danh sách các cột cần lấy
+  repeated string columns = 1;
+
+  // Sắp xếp theo cột nào
+  string order_by_column = 2;
+
+  // Sắp xếp theo chiều nào
+  enum Direction {
+    ASC = 0;
+    DESC = 1;
+  }
+  Direction order_by_direction = 3;
+
+  // Trang hiện tại
+  int32 current_page = 4;
+}
+
+// Bảng lưu danh sách Category
+message Category {
+  // Id Category
+  int32 id = 1;
+
+  // Tên hiển thị của Category
+  string title = 2 [(gogoproto.moretags) = "sql:\",unique\""];
+
+  // Tên hiển thị trên đường dẫn
+  string slug = 3 [(gogoproto.moretags) = "sql:\",unique\""];
+
+  // Icon của Category
+  string icon = 4;
+
+  // Mô tả Category
+  string description = 5;
+
+  // Số lượng bài viết
+  int32 post_count = 6;
+}
+
+// Bảng lưu danh sách Tag
+message Tag {
+  // Id Tag (uuid)
+  string id = 1;
+
+  // Tên hiển thị của Tag
+  string title = 2;
+
+  // Tên hiển thị trên đường dẫn
+  string slug = 3;
+
+  // Icon của Tag
+  string icon = 4;
+
+  // Số lượng bài viết sử dụng
+  int32 post_count = 5;
+
+  // Thời điểm tạo Tag
+  google.protobuf.Timestamp created_at = 6 [(gogoproto.stdtime) = true, (gogoproto.nullable) = false];
+
+  // Người tạo
+  string created_by = 7;
+}
+
+// Bảng lưu danh sách Post
+message Post {
+  // Id bài viết (uuid)
+  string id = 1;
+
+  // Id danh mục
+  int32 category_id = 2;
+  Category category = 22 [(gogoproto.nullable) = false]; // foreign key
+
+  // Id tác giả
+  string author_id = 3;
+
+  // Họ tên tác giả
+  string author_name = 4;
+
+  // Avatar tác giả
+  string author_avatar = 5;
+
+  // Mảng các tag
+  repeated string tag_ids = 6 [(gogoproto.moretags) = "pg:\",array\""];
+
+  // Tiêu đề bài viết
+  string title = 7;
+
+  // Tên hiển thị trên đường dẫn (chuẩn hóa lại tiêu đề theo URL)
+  string slug = 8;
+
+  // Mô tả ngắn gọn của bài viết
+  string description = 9;
+
+  // Nội dung bài viết dưới dạng HTML
+  string content_html = 10;
+
+  // Nội dung bài viết dưới dạng Markdown
+  string content_markdown = 11;
+
+  // Ảnh dại diện
+  string thumbnail = 12;
+
+  // Tổng điểm Vote
+  int32 vote_score = 13;
+
+  // Số lượng bookmark
+  int32 bookmark_count = 14;
+
+  // Số lượt view
+  int32 view_count = 15;
+
+  // Trạng thái của bài viết: Draft=0, Chờ kiểm duyệt=1  và Publish=2
+  int32 status = 16;
+
+  // Bài viết có hiển thị tên tác giả hay không (ẩn danh)
+  bool is_anonymous = 17 [(gogoproto.moretags) = "sql:\"default:false\""];
+
+  // Ngày xuất bản
+  google.protobuf.Timestamp published_at = 18 [(gogoproto.stdtime) = true, (gogoproto.nullable) = false];
+
+  // Thời điểm tạo bài viết
+  google.protobuf.Timestamp created_at = 19 [(gogoproto.stdtime) = true, (gogoproto.nullable) = false];
+
+  // Thời điểm chỉnh sửa cuối cùng
+  google.protobuf.Timestamp modified_at = 20 [(gogoproto.stdtime) = true, (gogoproto.nullable) = false];
+
+  // Người chỉnh sửa cuối cùng
+  string modified_by = 21;
+}
+
+// Bảng lưu danh sách Bookmark
+message Bookmark {
+  // Id bài viết 
+  string post_id = 1 [(gogoproto.moretags) = "sql:\",pk\""];
+  Post post = 3 [(gogoproto.nullable) = false]; // foreign key
+
+  // Id User
+  string user_id = 2 [(gogoproto.moretags) = "sql:\",pk\""];
+}
+
+// Bảng lưu Vote cho bài viết
+message PostVote {
+  // Id bài viết
+  string post_id = 1 [(gogoproto.moretags) = "sql:\",pk\""];
+  Post post = 4 [(gogoproto.nullable) = false]; // foreign key
+  // Id User
+  string user_id = 2 [(gogoproto.moretags) = "sql:\",pk\""];
+
+  // Up vote +1, Down vote -1
+  int32 vote = 3;
+}
+
+// Bảng lưu danh sách bình luận
+message Comment {
+  // Id bình luận (uuid)
+  string id = 1;
+
+  // Id bình luận được trả lời
+  string parent_id = 2;
+
+  // Id bài viết 
+  string post_id = 3;
+  Post post = 20 [(gogoproto.nullable) = false]; // foreign key
+
+  // Id User
+  string user_id = 4;
+
+  // Nội dung bình luận dạng HTML
+  string content_html = 5;
+
+  // Nội dung bình luận dạng Markdown
+  string content_markdown = 6;
+
+  // Tổng điểm Vote
+  int32 vote_score = 7;
+
+  // Thời điểm bình luận
+  google.protobuf.Timestamp created_at = 8 [(gogoproto.stdtime) = true, (gogoproto.nullable) = false];;
+
+  // Thời điểm chỉnh sửa cuối cùng
+  google.protobuf.Timestamp modified_at = 9 [(gogoproto.stdtime) = true, (gogoproto.nullable) = false];;
+
+  // Người chỉnh sửa cuối cùng
+  string modified_by = 10;
+}
+
+// Bảng lưu Vote cho bình luận
+message CommentVote {
+  // Id bình luận
+  string comment_id = 1;
+
+  // Id User
+  string user_id = 2;
+
+  // Up vote +1, Down vote -1
+  int32 vote = 3;
+}
+
+// Bảng lưu danh sách AuthorFollow
+message AuthorFollow {
+  // Id tác giả được follow
+  string author_id = 1  [(gogoproto.moretags) = "sql:\",pk\""]; 
+
+  // Id người follow
+  string follower_id = 2  [(gogoproto.moretags) = "sql:\",pk\""];
+}
+
+// Bảng lưu danh sách TagFollow
+message TagFollow {
+  // Id Tag
+  string tag_id = 1 [(gogoproto.moretags) = "sql:\",pk\""]; // foreign key
+  Tag tag = 3 [(gogoproto.nullable) = false];
+
+  // Id User
+  string user_id = 2 [(gogoproto.moretags) = "sql:\",pk\""];
+}
+
+message AuthorStats {
+  // Tổng số lượng bài viết
+  int32 number_of_posts = 1;
+
+  // Tổng số lượt vote trong tất cả các bài viết
+  int32 number_of_votes = 2;
+
+  // Tổng số lượt xem trong tất cả các bài viết
+  int32 number_of_views = 3;
+
+  // Danh sách các danh mục mà tác giả đã viết bài
+  Category categories = 4;
+}
